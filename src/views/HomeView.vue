@@ -81,9 +81,3 @@ import icon from "@/components/icon/index.vue";
 const counts = ref(4);
 </script>
 
-<style lang="scss">
-h3 {
-  @apply font-semibold text-lg text-[#7743DB];
-}
-</style>
-yarn add -D sass
