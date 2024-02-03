@@ -10,7 +10,7 @@
           :key="i"
           class="hover:text-[#7743DB]"
           :class="`${
-            this.$route.name === item.link ? 'border-[#7743DB] border-b-2' : ''
+            $route.name === item.link ? 'border-[#7743DB] border-b-2' : ''
           }`"
         >
           <RouterLink :to="`${item.link}`" class="flex items-center">
@@ -33,4 +33,6 @@
 import { menuItem_Admin } from "@/constant/menu";
 
 import icon from "@/components/icon/index.vue";
+
+
 </script>
