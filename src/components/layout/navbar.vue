@@ -9,6 +9,9 @@
           v-for="(item, i) in menuItem_Admin"
           :key="i"
           class="hover:text-[#7743DB]"
+          :class="`${
+            this.$route.name === item.link ? 'border-[#7743DB] border-b-2' : ''
+          }`"
         >
           <RouterLink :to="`${item.link}`" class="flex items-center">
             <span v-show="item.icon" class="mr-2">
