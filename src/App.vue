@@ -8,7 +8,7 @@ import PNav from "@/components/layout/navbar.vue";
 <template>
   <div>
     <p-nav />
-    <!-- <RouterView /> -->
+    <RouterView />
   </div>
 </template>
 
