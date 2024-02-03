@@ -1,14 +1,14 @@
 <script setup>
 import { RouterView } from "vue-router";
 
-// import PSidebar from "@/components/sidebar/index.vue";
+import PNav from "@/components/layout/navbar.vue";
 
 </script>
 
 <template>
   <div>
-    <!-- <p-sidebar /> -->
-    <RouterView />
+    <p-nav />
+    <!-- <RouterView /> -->
   </div>
 </template>
 

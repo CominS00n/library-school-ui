@@ -4,7 +4,7 @@
   >
     <div class="flex items-center space-x-6">
       <h1 class="text-2xl">Library</h1>
-      <ul class="space-x-3 flex">
+      <!-- <ul class="space-x-3 flex">
         <li
           v-for="(item, i) in menuItem_Admin"
           :key="i"
@@ -22,7 +22,7 @@
             </div>
           </RouterLink>
         </li>
-      </ul>
+      </ul> -->
     </div>
     <div><n-button ghost> Login </n-button></div>
   </div>

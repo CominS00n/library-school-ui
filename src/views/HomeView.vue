@@ -1,5 +1,4 @@
 <template>
-  <p-sidebar />
   <div class="bg-white h-svh">
     <div
       class="grid grid-cols-2 container mx-auto justify-center items-center h-full"
@@ -75,7 +74,6 @@
 <script setup>
 import { ref } from "vue";
 import PButton from "@/components/button/index.vue";
-import PSidebar from "@/components/sidebar/index.vue";
 import icon from "@/components/icon/index.vue";
 
 const counts = ref(4);
