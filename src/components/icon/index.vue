@@ -1,6 +1,6 @@
 <template>
   <span>
-    <Icon :icon="icon"  />
+    <Icon :icon="icon" :class="iconClass" />
   </span>
 </template>
 
@@ -16,5 +16,9 @@ export default {
       default: "heroicons-outline:home",
     },
   },
+  iconClass: {
+    type: String,
+    default: 'w-6 h-6'
+  }
 };
 </script>

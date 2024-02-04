@@ -7,10 +7,15 @@ export const menuItem_Admin = [
     {
         title: 'รายการหนังสือ',
         icon: '',
-        link: ''
+        link: 'book-list'
     },
     {
         title: 'คืนหนังสือ',
+        icon: '',
+        link: ''
+    },
+    {
+        title: 'Dashboard',
         icon: '',
         link: ''
     },

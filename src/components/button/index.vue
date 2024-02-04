@@ -1,23 +1,31 @@
 <template>
   <button
     v-if="type === 'solid'"
-    class="button-s p-2 min-w-20 rounded-full bg-[#7743DB] text-white"
+    class="flex justify-center items-center p-2 px-4 min-w-20 rounded-full bg-[#7743DB] text-white hover:bg-[#C3ACD0]"
   >
     {{ text }}
+    <span v-if="icon !== ''" class="ml-2"><icon :icon="icon" /></span>
   </button>
   <button
     v-if="type === 'outline'"
-    class="button-o p-2 min-w-20 rounded-full outline outline-1 outline-[#7743DB] text-[#7743DB]"
+    class="button-o flex justify-center items-center p-2 px-4 min-w-20 rounded-full outline outline-1 outline-[#7743DB] text-[#7743DB]"
   >
     {{ text }}
+    <span v-if="icon !== ''" class="ml-2"><icon :icon="icon" /></span>
   </button>
-  <button v-if="type === 'custom'" class="button-s rounded-full p-2 min-w-20">
+  <button v-if="type === 'custom'" class="button-s flex justify-center items-center rounded-full p-2 px-4 min-w-20">
     {{ text }}
+    <span v-if="icon !== ''" class="ml-2"><icon :icon="icon" /></span>
   </button>
 </template>
 
 <script>
+import icon from '@/components/icon/index.vue'
+
 export default {
+  components: {
+    icon
+  },
   data() {
     let btnColor = `bg-[${this.color}] button-s rounded-full text-white p-2 min-w-20`;
     return {
@@ -37,13 +45,16 @@ export default {
       type: String,
       default: "#7743DB",
     },
+    icon: {
+      type: String,
+      default: ''
+    }
   },
 };
 </script>
 
 <style scoped>
 .button-s:hover {
-  background: none;
   outline: 1px solid #7743db;
   color: #7743db;
 }
