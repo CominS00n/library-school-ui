@@ -1,3 +1,14 @@
+html {
+    font-size: 16px;
+    /* background: #f7f7f7; */
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+/* Hide scrollbar for Chrome, Safari and Opera */
+html::-webkit-scrollbar {
+    display: none;
+  }
+  
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
