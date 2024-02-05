@@ -15,13 +15,8 @@
           similique repellat laborum!
         </p>
         <div class="text-base mt-5">
-          <p-button icon="heroicons-outline:arrow-long-right" type="outline" />
+          <p-button icon="heroicons-outline:arrow-long-right" type="outline" text="See more" />
         </div>
-
-        <!-- <n-button>
-          <span class="flex gap-x-3"
-            >See more <icon icon="heroicons-outline:arrow-right" /></span
-        ></n-button> -->
       </div>
       <div class="flex justify-center">
         <img
@@ -71,3 +66,9 @@ import icon from '@/components/icon/index.vue'
 
 const counts = ref(4)
 </script>
+
+<style scoped>
+img {
+  box-shadow: -24px -24px #7743db;
+}
+</style>

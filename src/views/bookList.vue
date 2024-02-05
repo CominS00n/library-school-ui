@@ -8,7 +8,7 @@
     </div>
     <div class="flex justify-start text-xl w-72">
       <div
-        class="flex justify-center border p-2 rounded-l-full w-full hover:bg-[#C3ACD0]"
+        class="flex justify-center border p-2 rounded-l-full w-full hover:bg-[#C3ACD0] hover:text-white"
         :class="`${dataList === 'grid' ? 'bg-[#7743DB] text-white' : ''}`"
         @click="`${(dataList = 'grid')}`"
       >

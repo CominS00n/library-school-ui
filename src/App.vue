@@ -14,7 +14,5 @@ import PNav from '@/components/layout/navbar.vue'
 </template>
 
 <style>
-img {
-  box-shadow: -24px -24px #7743db;
-}
+
 </style>
