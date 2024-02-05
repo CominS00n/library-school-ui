@@ -14,9 +14,11 @@
           perferendis dolorum delectus? Asperiores ullam dolorem corporis temporibus tempora
           similique repellat laborum!
         </p>
-        <div class="text-base mt-5">
-          <p-button icon="heroicons-outline:arrow-long-right" type="outline" text="See more" />
-        </div>
+        <router-link to="book-list">
+          <div class="text-base mt-5">
+            <p-button icon="heroicons-outline:arrow-long-right" type="outline" text="See more" />
+          </div>
+        </router-link>
       </div>
       <div class="flex justify-center">
         <img
