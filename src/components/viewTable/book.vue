@@ -1,5 +1,5 @@
 <template>
-  <div class="grid grid-cols-6 gap-y-5 gap-x-2">
+  <div class="grid grid-cols-5 gap-y-5 gap-x-2">
     <n-card v-for="conunt in countItems">
       <div class="">
         <img
