@@ -8,7 +8,7 @@ import PNav from '@/components/layout/navbar.vue'
   <div class="sticky top-0 shadow-md bg-white z-[9999]">
     <p-nav />
   </div>
-  <div class="mt-6">
+  <div class="mt-6 container mx-auto">
     <RouterView />
   </div>
 </template>

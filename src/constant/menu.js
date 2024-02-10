@@ -22,6 +22,6 @@ export const menuItem_Admin = [
     {
         title: 'Register',
         icon: '',
-        link: ''
+        link: 'register'
     },
 ]

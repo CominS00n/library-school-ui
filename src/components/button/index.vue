@@ -1,7 +1,8 @@
 <template>
   <button
     v-if="type === 'solid'"
-    class="flex justify-center items-center p-2 px-4 min-w-20 rounded-full bg-[#7743DB] text-white hover:bg-[#C3ACD0]"
+    class="flex justify-center items-center p-2 px-4 min-w-20 rounded-full bg-[#7743DB] text-white border border-[#7743DB] hover:bg-[#C3ACD0] hover:border-[#C3ACD0]"
+    :class="mainClass"
   >
     {{ text }}
     <span v-if="icon !== ''" class="ml-2"><icon :icon="icon" /></span>
@@ -9,11 +10,16 @@
   <button
     v-if="type === 'outline'"
     class="button-o flex justify-center items-center p-2 px-4 min-w-20 rounded-full outline outline-1 outline-[#7743DB] text-[#7743DB]"
+    :class="mainClass"
   >
     {{ text }}
     <span v-if="icon !== ''" class="ml-2"><icon :icon="icon" /></span>
   </button>
-  <button v-if="type === 'custom'" class="button-s flex justify-center items-center rounded-full p-2 px-4 min-w-20">
+  <button
+    v-if="type === 'custom'"
+    class="button-s flex justify-center items-center rounded-full p-2 px-4 min-w-20"
+    :class="mainClass"
+  >
     {{ text }}
     <span v-if="icon !== ''" class="ml-2"><icon :icon="icon" /></span>
   </button>
@@ -27,39 +33,43 @@ export default {
     icon
   },
   data() {
-    let btnColor = `bg-[${this.color}] button-s rounded-full text-white p-2 min-w-20`;
+    let btnColor = `bg-[${this.color}] button-s rounded-full text-white p-2 min-w-20`
     return {
-      btnColor,
-    };
+      btnColor
+    }
   },
   props: {
     text: {
       type: String,
-      default: "default",
+      default: 'default'
     },
     type: {
       type: String,
-      default: "custom",
+      default: 'custom'
     },
     color: {
       type: String,
-      default: "#7743DB",
+      default: '#7743DB'
     },
     icon: {
       type: String,
       default: ''
+    },
+    mainClass: {
+      type: String,
+      default: ''
     }
-  },
-};
+  }
+}
 </script>
 
 <style scoped>
 .button-s:hover {
-  outline: 1px solid #7743db;
-  color: #7743db;
+  outline: 1px solid #C3ACD0;
+  color: #C3ACD0;
 }
 .button-o:hover {
-  background-color: #7743db;
+  background-color: #C3ACD0;
   outline: none;
   color: white;
 }

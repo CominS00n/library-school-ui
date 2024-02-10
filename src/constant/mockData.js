@@ -9,7 +9,6 @@ export const student = [
         phone: '000-000-0000',
         parent: 'firstname lastname',
         pphone: '000-000-0000'
-
     }
 ]
 

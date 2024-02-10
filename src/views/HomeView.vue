@@ -24,11 +24,12 @@
             perferendis dolorum delectus? Asperiores ullam dolorem corporis temporibus tempora
             similique repellat laborum!
           </p>
-          <router-link to="book-list">
-            <div class="text-base mt-5">
+
+          <div class="text-base mt-5 w-fit">
+            <router-link to="book-list">
               <p-button icon="heroicons-outline:arrow-long-right" type="outline" text="See more" />
-            </div>
-          </router-link>
+            </router-link>
+          </div>
         </div>
         <div class="flex justify-center">
           <img
