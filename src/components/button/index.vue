@@ -17,7 +17,7 @@
   </button>
   <button
     v-if="type === 'custom'"
-    class="button-s flex justify-center items-center rounded-full p-2 px-4 min-w-20"
+    class="button-c flex justify-center items-center rounded-full p-2 px-4 min-w-20"
     :class="mainClass"
   >
     {{ text }}
@@ -64,9 +64,9 @@ export default {
 </script>
 
 <style scoped>
-.button-s:hover {
-  outline: 1px solid #C3ACD0;
-  color: #C3ACD0;
+.button-c:hover {
+  outline: 1px solid #7743DB;
+  color: #7743DB;
 }
 .button-o:hover {
   background-color: #C3ACD0;
