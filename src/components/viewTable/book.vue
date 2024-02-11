@@ -13,11 +13,11 @@
         <p>{{ book.school }}</p>
         <p>ประเภท: {{ book.type }}</p>
         <p>จำนวน: {{ book.amount }}</p>
+        {{ book.borrowData }}
       </div>
       <div class="acton flex mt-3 justify-between">
         <p-button text="รายละเอียด"></p-button>
         <p-button text="ยืม" type="solid"></p-button>
-
       </div>
     </n-card>
   </div>

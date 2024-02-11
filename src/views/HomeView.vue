@@ -55,11 +55,7 @@
           <div class="grid grid-cols-5 gap-y-5 gap-x-2">
             <n-card v-for="(book, i) in topBooks" :key="i" class="h-[460px]">
               <div class="">
-                <img
-                  :src="`/image/${book.image}`"
-                  alt=""
-                  class="object-contain h-64 w-64"
-                />
+                <img :src="`/image/${book.image}`" alt="" class="object-contain h-64 w-64" />
               </div>
               <h1 class="text-center font-semibold h-12">{{ book.name }}</h1>
               <div class="detail text-start">
@@ -80,7 +76,7 @@
 </template>
 
 <script setup>
-import { computed, ref } from 'vue'
+import { ref, watchEffect } from 'vue'
 import { bookTypes, bookList } from '@/constant/mockData'
 import { TransitionRoot } from '@headlessui/vue'
 
@@ -88,9 +84,10 @@ import PButton from '@/components/button/index.vue'
 import icon from '@/components/icon/index.vue'
 
 const books = ref(bookList)
+const topBooks = ref([])
 
-const topBooks = computed(() => {
-  return books.value.sort((a, b) => b.borrowData - a.borrowData).slice(0, 5)
+watchEffect(() => {
+  topBooks.value = [...books.value].sort((a, b) => b.borrowData - a.borrowData).slice(0, 5)
 })
 </script>
 
