@@ -20,6 +20,11 @@ export const menuItem_Admin = [
         link: 'return-book'
     },
     {
+        title: 'เพิ่มหนังสือ',
+        icon: '',
+        link: 'add-book'
+    },
+    {
         title: 'Dashboard',
         icon: '',
         link: 'dashboard'

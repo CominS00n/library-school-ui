@@ -11,7 +11,13 @@
   >
     <div class="flex flex-col space-y-4">
       <div class="flex justify-center w-full">
-        <text-input label="" icon="search" inputClass="w-[640px]" placeholder="Search..." />
+        <text-input
+          v-model="searchInput"
+          label=""
+          icon="search"
+          inputClass="w-[640px]"
+          placeholder="Search..."
+        />
       </div>
       <div class="flex items-center gap-x-6">
         <div class="flex justify-start text-xl w-72 cursor-pointer">
@@ -35,17 +41,17 @@
             v-for="(bookType, i) in bookTypes"
             class="cursor-pointer hover:scale-110"
             :class="numType === i ? 'text-[#7743DB] font-semibold' : ''"
-            @click="numType = i"
+            @click="isSelectType(bookType, i)"
           >
             {{ bookType }}
           </il>
         </ul>
       </div>
       <div v-show="dataList === 'grid'">
-        <grid />
+        <grid :search-filter="searchInput" :type-filter="typeFilter" />
       </div>
       <div v-show="dataList === 'list'">
-        <list />
+        <list :search-filter="searchInput" :type-filter="typeFilter" />
       </div>
     </div>
   </TransitionRoot>
@@ -63,4 +69,16 @@ import grid from '@/components/viewTable/book.vue'
 
 const dataList = ref('grid')
 const numType = ref(0)
+const typeFilter = ref('')
+const searchInput = ref('')
+
+function isSelectType(bookType, i) {
+  numType.value = i
+  console.log(i)
+  if (i === 0) {
+    typeFilter.value = ''
+  } else {
+    typeFilter.value = bookType
+  }
+}
 </script>

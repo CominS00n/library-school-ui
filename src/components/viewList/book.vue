@@ -2,30 +2,32 @@
   <div class="grid gap-y-2">
     <div
       class="border p-4 grid grid-cols-12 items-center gap-x-5"
-      v-for="conut in counts"
+      v-for="book in bookList"
     >
       <div class="">
         <img
-          src="https://images.pexels.com/photos/2908984/pexels-photo-2908984.jpeg"
+          :src="`/image/${book.image}`"
           alt="image"
           class="object-contain h-32 w-24"
         />
       </div>
-      <div class="col-span-11 grid grid-cols-5">
+      <div class="col-span-11 grid grid-cols-6">
         <div class="flex flex-col justify-center">
-          <h3 class="font-bold">Book Name</h3>
-          <p>โรงเรียนเทศบาลชนะชัยศรี</p>
+          <h3 class="font-bold">{{ book.name }}</h3>
+          <p>{{ book.school }}</p>
+        </div>
+        <div>
+          <p class="font-semibold">ประเภท</p>
+          <p>{{ book.type }}</p>
         </div>
         <div class="col-span-3">
-          <p>Description</p>
+          <p class="font-semibold">Description</p>
           <p>
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nesciunt tempore, excepturi
-            architecto culpa, autem ipsa adipisci ab esse maxime nam quibusdam ullam veritatis omnis
-            neque earum eos aperiam quas rem.
+            {{ book.description }}
           </p>
         </div>
         <div class="flex items-center justify-center">
-          <p-button text="Borrow" type="outline"></p-button>
+          <p-button text="ยืม" type="outline"></p-button>
         </div>
       </div>
     </div>
@@ -34,8 +36,20 @@
 
 <script setup>
 import { ref } from 'vue'
+import { bookList } from '@/constant/mockData';
 
 import PButton from '@/components/button/index.vue'
 
 const counts = ref(20)
+
+const props = defineProps({
+  searchFilter: {
+    type: String,
+    default: ''
+  },
+  typeFilter: {
+    type: String,
+    default: ''
+  }
+})
 </script>
