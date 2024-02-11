@@ -33,7 +33,7 @@
         </div>
         <div class="flex justify-center">
           <img
-            src="https://images.pexels.com/photos/3494806/pexels-photo-3494806.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+            src="/image/pexels-photo-3494806.jpeg"
             alt="##"
             class="cover-image h-[540px] rounded-se-3xl rounded-bl-3xl"
           />
@@ -52,32 +52,22 @@
       <div class="my-2 space-y-6">
         <n-divider title-placement="center"> รายการแนะนำ </n-divider>
         <n-card class="rounded-xl">
-          <div class="grid grid-cols-5 gap-6 p-6">
-            <!-- <n-card title="Book Name" v-for="count in counts">
-            <template #cover>
-              <img src="https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg" />
-            </template>
-            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ducimus, modi.</p>
-            <div class="flex justify-around mt-6">
-              <p-button text="รายละเอียด" />
-              <p-button type="solid" text="ยืม" />
-            </div>
-          </n-card> -->
-            <n-card v-for="conunt in counts">
+          <div class="grid grid-cols-5 gap-y-5 gap-x-2">
+            <n-card v-for="(book, i) in topBooks" :key="i" class="h-[460px]">
               <div class="">
                 <img
-                  src="https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg"
+                  :src="`/image/${book.image}`"
                   alt=""
                   class="object-contain h-64 w-64"
                 />
               </div>
-              <h1 class="text-center font-semibold">Book Name</h1>
+              <h1 class="text-center font-semibold h-12">{{ book.name }}</h1>
               <div class="detail text-start">
-                <p>โรงเรียนเทศบาลชนะชัยศรี</p>
-                <p>ประเภท</p>
-                <p>จำนวน</p>
+                <p>{{ book.school }}</p>
+                <p>ประเภท: {{ book.type }}</p>
+                <p>จำนวน: {{ book.amount }}</p>
               </div>
-              <div class="acton flex justify-between mt-3">
+              <div class="acton flex mt-3 justify-between">
                 <p-button text="รายละเอียด"></p-button>
                 <p-button text="ยืม" type="solid"></p-button>
               </div>
@@ -90,14 +80,18 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import { bookTypes } from '@/constant/mockData'
+import { computed, ref } from 'vue'
+import { bookTypes, bookList } from '@/constant/mockData'
 import { TransitionRoot } from '@headlessui/vue'
 
 import PButton from '@/components/button/index.vue'
 import icon from '@/components/icon/index.vue'
 
-const counts = ref(5)
+const books = ref(bookList)
+
+const topBooks = computed(() => {
+  return books.value.sort((a, b) => b.borrowData - a.borrowData).slice(0, 5)
+})
 </script>
 
 <style scoped>

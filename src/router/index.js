@@ -17,7 +17,22 @@ const router = createRouter({
       path: '/register',
       name: 'register',
       component: () => import('@/views/register.vue')
-    }
+    },
+    {
+      path: '/borrow-book',
+      name: 'borrow-book',
+      component: () => import('@/views/bookBorrow.vue')
+    },
+    {
+      path: '/return-book',
+      name: 'return-book',
+      component: () => import('@/views/bookReturn.vue')
+    },
+    {
+      path: '/dashboard',
+      name: 'dashboard',
+      component: () => import('@/views/dashboard.vue')
+    },
   ]
 })
 

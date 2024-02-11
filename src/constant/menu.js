@@ -10,14 +10,19 @@ export const menuItem_Admin = [
         link: 'book-list'
     },
     {
+        title: 'ยืมหนังสือ',
+        icon: '',
+        link: 'borrow-book'
+    },
+    {
         title: 'คืนหนังสือ',
         icon: '',
-        link: ''
+        link: 'return-book'
     },
     {
         title: 'Dashboard',
         icon: '',
-        link: ''
+        link: 'dashboard'
     },
     {
         title: 'Register',
