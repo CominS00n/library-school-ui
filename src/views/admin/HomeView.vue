@@ -26,7 +26,7 @@
           </p>
 
           <div class="text-base mt-5 w-fit">
-            <router-link to="book-list">
+            <router-link to="admin-book-list">
               <p-button icon="heroicons-outline:arrow-long-right" type="outline" text="See more" />
             </router-link>
           </div>

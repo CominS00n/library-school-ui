@@ -15,7 +15,7 @@
           <router-link to="/"
             ><p-button text="Cancel" type="outline" main-class="w-32"
           /></router-link>
-          <p-button text="Submit" type="solid" main-class="w-full" />
+          <p-button :click="loginStudent" text="Submit" type="solid" main-class="w-full" />
         </div>
       </div>
     </div>
@@ -40,7 +40,7 @@
     <template #footer>
       <div class="flex gap-x-4">
         <p-button :click="closeModal" text="Cancel" />
-        <p-button text="Submit" type="solid" main-class="w-full" />
+        <p-button :click="loginAdmin" text="Submit" type="solid" main-class="w-full" />
       </div>
     </template>
   </n-modal>
@@ -48,21 +48,67 @@
 
 <script setup>
 import { ref } from 'vue'
+import { student, Admin } from '@/constant/mockData'
+import { saveUserInfo } from '@/stores/accountLogin'
+import { useRouter } from 'vue-router'
 
 import PInput from '@/components/textInput/index.vue'
 import PButton from '@/components/button/index.vue'
 
-const suser = ref('')
-const spass = ref('')
-const auser = ref('')
-const apass = ref('')
+const suser = ref('132234001')
+const spass = ref('password')
+const auser = ref('admin')
+const apass = ref('admin')
 
+const isLoggedIn = ref(false)
 const check = ref(false)
-
 const isOpenModal = ref(false)
+
+const router = useRouter()
 
 function closeModal() {
   isOpenModal.value = false
-  console.log(isOpenModal.value)
+}
+
+function loginStudent() {
+  const foundStudent = student.find(
+    (item) => item.username === suser.value && item.pass === spass.value
+  )
+  if (foundStudent) {
+    isLoggedIn.value = true
+    saveUserInfo({
+      username: suser.value,
+      firstName: foundStudent.fname,
+      lastName: foundStudent.lname,
+      studentNo: foundStudent.studentNo,
+      parentFirstName: foundStudent.pfname,
+      parentLastName: foundStudent.plname,
+      parentPhone: foundStudent.pphone
+    })
+    console.log(`${foundStudent.fname}  ${foundStudent.lname} เข้าสู่ระบบ`)
+  } else {
+    console.log('ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง')
+  }
+}
+
+function loginAdmin() {
+  const foundAdmin = Admin.find(
+    (item) => item.username === auser.value && item.password === apass.value
+  )
+  if (!check.value) {
+    console.log('กรุณายืนยันการเข้าสู่ระบบ')
+  } else if (foundAdmin) {
+    isLoggedIn.value = true
+    saveUserInfo({
+      username: foundAdmin.username,
+      firstName: foundAdmin.fname,
+      lastName: foundAdmin.lname,
+      email: foundAdmin.email
+    })
+    console.log(`${foundAdmin.fname}  ${foundAdmin.lname} เข้าสู่ระบบ`)
+    router.push('/admin')
+  } else {
+    console.log('ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง')
+  }
 }
 </script>

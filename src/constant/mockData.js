@@ -1,13 +1,15 @@
 export const student = [
     {
         id: '001',
-        username: 'username1',
-        pass: 'password',
-        fname: 'firstname',
-        lname: 'lastname',
+        studentNo: '132234001',
+        fname: 'first name',
+        lname: 'last name',
         address: 'address',
         phone: '000-000-0000',
-        parent: 'firstname lastname',
+        username: '132234001',
+        pass: 'password',
+        pfname: 'first name',
+        plname: 'last name',
         pphone: '000-000-0000'
     }
 ]
@@ -127,4 +129,18 @@ export const bookList = [
         image: '001.jpg',
         borrowData: 8
     },
+]
+
+export const Admin = [
+    {
+        id: '001',
+        fname: 'First Name',
+        lname: 'Last Name',
+        address: '',
+        email: 'test@mail.com',
+        jobPosition: '',
+        school: '',
+        username: 'admin',
+        password: 'admin'
+    }
 ]
