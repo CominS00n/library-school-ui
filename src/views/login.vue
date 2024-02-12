@@ -77,7 +77,7 @@ function loginStudent() {
   if (foundStudent) {
     isLoggedIn.value = true
     saveUserInfo({
-      username: suser.value,
+      username: foundStudent.username,
       firstName: foundStudent.fname,
       lastName: foundStudent.lname,
       studentNo: foundStudent.studentNo,
