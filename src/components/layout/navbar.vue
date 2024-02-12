@@ -7,7 +7,7 @@
         <h1 class="text-2xl">Library</h1>
         <ul class="space-x-3 flex h-full">
           <li
-            v-for="(item, i) in menuItem_Admin"
+            v-for="(item, i) in itemList"
             :key="i"
             class="hover:text-[#7743DB] text-center flex px-4"
             :class="`${$route.name === item.link ? 'border-[#7743DB] border-b-2' : ''}`"
@@ -23,13 +23,21 @@
           </li>
         </ul>
       </div>
-      <div><n-button ghost> Login </n-button></div>
+      <div><router-link to="/login"><p-button text="เข้าสู่ระบบ" type="outline" main-class="w-24 p-0 h-9" /></router-link></div>
     </div>
   </div>
 </template>
 
 <script setup>
-import { menuItem_Admin } from '@/constant/menu'
-
 import icon from '@/components/icon/index.vue'
+import PButton from '@/components/button/index.vue'
+
+const props = defineProps({
+  item: {
+    type:Object,
+    default: null
+  }
+})
+
+const itemList = props.item
 </script>

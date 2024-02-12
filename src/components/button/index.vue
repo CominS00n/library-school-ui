@@ -1,5 +1,6 @@
 <template>
   <button
+    @click="click"
     v-if="type === 'solid'"
     class="flex justify-center items-center p-2 px-4 min-w-20 rounded-full bg-[#7743DB] text-white border border-[#7743DB] hover:bg-[#C3ACD0] hover:border-[#C3ACD0]"
     :class="mainClass"
@@ -8,6 +9,7 @@
     <span v-if="icon !== ''" class="ml-2"><icon :icon="icon" /></span>
   </button>
   <button
+    @click="click"
     v-if="type === 'outline'"
     class="button-o flex justify-center items-center p-2 px-4 min-w-20 rounded-full outline outline-1 outline-[#7743DB] text-[#7743DB]"
     :class="mainClass"
@@ -16,6 +18,7 @@
     <span v-if="icon !== ''" class="ml-2"><icon :icon="icon" /></span>
   </button>
   <button
+    @click="click"
     v-if="type === 'custom'"
     class="button-c flex justify-center items-center rounded-full p-2 px-4 min-w-20"
     :class="mainClass"
@@ -32,13 +35,11 @@ export default {
   components: {
     icon
   },
-  data() {
-    let btnColor = `bg-[${this.color}] button-s rounded-full text-white p-2 min-w-20`
-    return {
-      btnColor
-    }
-  },
   props: {
+    click: {
+      type: Function,
+      default: null
+    },
     text: {
       type: String,
       default: 'default'
@@ -65,11 +66,11 @@ export default {
 
 <style scoped>
 .button-c:hover {
-  outline: 1px solid #7743DB;
-  color: #7743DB;
+  outline: 1px solid #7743db;
+  color: #7743db;
 }
 .button-o:hover {
-  background-color: #C3ACD0;
+  background-color: #c3acd0;
   outline: none;
   color: white;
 }

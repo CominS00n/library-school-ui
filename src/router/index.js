@@ -4,39 +4,70 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
+      path: '/login',
+      name: 'login',
+      component: () => import('@/views/login.vue')
+    },
+    {
       path: '/',
       name: '/',
-      component: () => import('../views/HomeView.vue')
+      redirect: '/home',
+      component: () => import('@/components/layout/page/tenant.vue'),
+      children: [
+        {
+          path: 'home',
+          name: 'home',
+          component: () => import('@/views/tenant/HomeView.vue')
+        },
+        {
+          path: 'book-list',
+          name: 'book-list',
+          component: () => import('@/views/tenant/bookList.vue')
+        }
+      ]
     },
     {
-      path: '/book-list',
-      name: 'book-list',
-      component: () => import('@/views/bookList.vue')
-    },
-    {
-      path: '/register',
-      name: 'register',
-      component: () => import('@/views/register.vue')
-    },
-    {
-      path: '/borrow-book',
-      name: 'borrow-book',
-      component: () => import('@/views/bookBorrow.vue')
-    },
-    {
-      path: '/return-book',
-      name: 'return-book',
-      component: () => import('@/views/bookReturn.vue')
-    },
-    {
-      path: '/dashboard',
-      name: 'dashboard',
-      component: () => import('@/views/dashboard.vue')
-    },
-    {
-      path: '/add-book',
-      name: 'add-book',
-      component: () => import('@/views/addBook.vue')
+      path: '/admin',
+      name: 'admin',
+      redirect: '/admin/admin-home',
+      component: () => import('@/components/layout/page/admin.vue'),
+      children: [
+        {
+          path: 'admin-home',
+          name: 'admin-home',
+          component: () => import('@/views/admin/HomeView.vue')
+        },
+        {
+          path: 'admin-book-list',
+          name: 'admin-book-list',
+          component: () => import('@/views/admin/bookList.vue')
+        },
+        {
+          path: 'admin-register',
+          name: 'admin-register',
+          component: () => import('@/views/admin/register.vue')
+        },
+        {
+          path: 'admin-borrow-book',
+          name: 'admin-borrow-book',
+          component: () => import('@/views/admin/bookBorrow.vue')
+        },
+        {
+          path: 'admin-return-book',
+          name: 'admin-return-book',
+          component: () => import('@/views/admin/bookReturn.vue')
+        },
+        {
+          path: 'admin-dashboard',
+          name: 'admin-dashboard',
+          component: () => import('@/views/admin/dashboard.vue')
+        },
+        {
+          path: 'admin-add-book',
+          name: 'admin-add-book',
+          component: () => import('@/views/admin/addBook.vue')
+        }
+      ]
     }
   ]
 })

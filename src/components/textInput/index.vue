@@ -10,7 +10,7 @@
           @input="updateValue"
           :disabled="disabled"
         />
-        <div v-if="password" class="absolute z-10 right-4">
+        <div v-if="password" class="absolute z-10 right-4 justify-center flex">
           <button v-if="type === 'password'">
             <Icon @click="type = 'text'" icon="heroicons-solid:eye-slash" />
           </button>
