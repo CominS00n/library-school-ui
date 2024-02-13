@@ -50,7 +50,7 @@ export const bookList = [
         borrowData: 1
     },
     {
-        id: '001',
+        id: '004',
         name: 'จิตวิทยาสายดาร์ก',
         school: 'โรงเรียนเทศบาลชนะชัยศรี',
         type: 'ปรัชญา',
@@ -60,7 +60,7 @@ export const bookList = [
         borrowData: 1
     },
     {
-        id: '001',
+        id: '005',
         name: 'จิตวิทยาสายดาร์ก',
         school: 'โรงเรียนเทศบาลชนะชัยศรี',
         type: 'ปรัชญา',
@@ -70,7 +70,7 @@ export const bookList = [
         borrowData: 24
     },
     {
-        id: '001',
+        id: '006',
         name: 'จิตวิทยาสายดาร์ก',
         school: 'โรงเรียนเทศบาลชนะชัยศรี',
         type: 'ปรัชญา',
@@ -80,7 +80,7 @@ export const bookList = [
         borrowData: 13
     },
     {
-        id: '001',
+        id: '007',
         name: 'จิตวิทยาสายดาร์ก',
         school: 'โรงเรียนเทศบาลชนะชัยศรี',
         type: 'ปรัชญา',
@@ -90,7 +90,7 @@ export const bookList = [
         borrowData: 16
     },
     {
-        id: '001',
+        id: '008',
         name: 'จิตวิทยาสายดาร์ก',
         school: 'โรงเรียนเทศบาลชนะชัยศรี',
         type: 'ปรัชญา',
@@ -100,7 +100,7 @@ export const bookList = [
         borrowData: 2
     },
     {
-        id: '001',
+        id: '009',
         name: 'จิตวิทยาสายดาร์ก',
         school: 'โรงเรียนเทศบาลชนะชัยศรี',
         type: 'ปรัชญา',
@@ -110,7 +110,7 @@ export const bookList = [
         borrowData: 7
     },
     {
-        id: '001',
+        id: '010',
         name: 'จิตวิทยาสายดาร์ก',
         school: 'โรงเรียนเทศบาลชนะชัยศรี',
         type: 'ปรัชญา',
@@ -120,7 +120,7 @@ export const bookList = [
         borrowData: 2
     },
     {
-        id: '001',
+        id: '011',
         name: 'จิตวิทยาสายดาร์ก',
         school: 'โรงเรียนเทศบาลชนะชัยศรี',
         type: 'ปรัชญา',
@@ -142,5 +142,16 @@ export const Admin = [
         school: '',
         username: 'admin',
         password: 'admin'
+    }
+]
+
+export const borrow = [
+    {
+        id: '001',
+        book_id: '001',
+        fname: 'first name',
+        lname: 'last name',
+        borrow_date: '',
+        return_date: '',
     }
 ]

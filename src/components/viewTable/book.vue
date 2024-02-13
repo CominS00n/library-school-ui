@@ -13,14 +13,15 @@
       </div>
       <div class="acton flex mt-3 justify-between">
         <p-button text="รายละเอียด"></p-button>
-        <p-button text="ยืม" type="solid"></p-button>
+        <router-link :to="`/borrow-book/${book.id}`">
+          <p-button text="ยืม" type="solid"></p-button>
+        </router-link>
       </div>
     </n-card>
   </div>
 </template>
 
 <script setup>
-import { ref } from 'vue'
 import { bookList } from '@/constant/mockData'
 
 import PButton from '@/components/button/index.vue'

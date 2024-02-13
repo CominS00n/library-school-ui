@@ -9,11 +9,11 @@ export const menuItem_Admin = [
     icon: '',
     link: 'admin-book-list'
   },
-  {
-    title: 'ยืมหนังสือ',
-    icon: '',
-    link: 'admin-borrow-book'
-  },
+  // {
+  //   title: 'ยืมหนังสือ',
+  //   icon: '',
+  //   link: 'admin-borrow-book'
+  // },
   {
     title: 'คืนหนังสือ',
     icon: '',

@@ -10,6 +10,18 @@ const router = createRouter({
       component: () => import('@/views/login.vue')
     },
     {
+      path: '/borrow-book/:id',
+      name: 'borrow-book',
+      component: () => import('@/views/bookBorrow.vue'),
+      beforeEnter: (to, from, next) => {
+        if (isAuthenticated()) {
+          next()
+        } else {
+          next({ name: 'login' })
+        }
+      },
+    },
+    {
       path: '/',
       name: '/',
       redirect: '/home',
@@ -54,11 +66,6 @@ const router = createRouter({
           path: 'admin-register',
           name: 'admin-register',
           component: () => import('@/views/admin/register.vue')
-        },
-        {
-          path: 'admin-borrow-book',
-          name: 'admin-borrow-book',
-          component: () => import('@/views/admin/bookBorrow.vue')
         },
         {
           path: 'admin-return-book',

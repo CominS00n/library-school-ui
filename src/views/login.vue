@@ -60,7 +60,6 @@ const spass = ref('password')
 const auser = ref('admin')
 const apass = ref('admin')
 
-const isLoggedIn = ref(false)
 const check = ref(false)
 const isOpenModal = ref(false)
 
@@ -75,7 +74,6 @@ function loginStudent() {
     (item) => item.username === suser.value && item.pass === spass.value
   )
   if (foundStudent) {
-    isLoggedIn.value = true
     saveUserInfo({
       username: foundStudent.username,
       firstName: foundStudent.fname,
@@ -98,7 +96,6 @@ function loginAdmin() {
   if (!check.value) {
     console.log('กรุณายืนยันการเข้าสู่ระบบ')
   } else if (foundAdmin) {
-    isLoggedIn.value = true
     saveUserInfo({
       username: foundAdmin.username,
       firstName: foundAdmin.fname,
