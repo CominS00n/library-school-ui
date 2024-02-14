@@ -12,19 +12,32 @@
         <!-- {{ book.borrowData }} -->
       </div>
       <div class="acton flex mt-3 justify-between">
-        <p-button text="รายละเอียด"></p-button>
+        <p-button :click="() => detailClick(book.id)" text="รายละเอียด"></p-button>
         <router-link :to="`/borrow-book/${book.id}`">
           <p-button text="ยืม" type="solid"></p-button>
         </router-link>
       </div>
     </n-card>
   </div>
+
+  <n-modal
+    v-model:show="isOpenModal"
+    class="custom-card w-[560px]"
+    preset="card"
+    title="รายละเอียด"
+    :bordered="false"
+    size="huge"
+  >
+    <sct-modal :book-i-d="modalBookId" />
+  </n-modal>
 </template>
 
 <script setup>
+import { ref } from 'vue'
 import { bookList } from '@/constant/mockData'
 
 import PButton from '@/components/button/index.vue'
+import sctModal from '@/components/modal/descriptionModal.vue'
 
 const props = defineProps({
   searchFilter: {
@@ -36,4 +49,12 @@ const props = defineProps({
     default: ''
   }
 })
+
+const isOpenModal = ref(false)
+const modalBookId = ref(null)
+
+function detailClick(bookId) {
+  isOpenModal.value = true
+  modalBookId.value = bookId
+}
 </script>

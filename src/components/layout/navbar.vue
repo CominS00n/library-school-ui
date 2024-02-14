@@ -31,7 +31,7 @@
         <div tabindex="0" role="button">
           <div class="flex items-center gap-x-2 text-sm font-semibold leading-6 text-gray-900">
             <div
-              class="h-7 w-7 rounded-full bg-[#099c3d] text-white flex justify-center items-center"
+              class="h-7 w-7 rounded-full bg-[#C3ACD0] text-white flex justify-center items-center"
             >
               {{ accountLogin.firstName[0] }}{{ accountLogin.lastName[0] }}
             </div>

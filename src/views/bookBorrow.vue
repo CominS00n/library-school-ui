@@ -7,10 +7,12 @@
         <p>{{ book.school }} / {{ book.type }} / {{ book.amount }}</p>
       </div>
       <div class="grid content-center gap-3">
-        <p class="col-span-2">รายละเอียด</p>
+        <!-- <p class="col-span-2">รายละเอียด</p> -->
         <p-input v-model="name" class="col-span-2" label="" disabled />
+        <p-input class="col-span-2" label="รหัส"  />
         <p-input label="ชื่อ" />
         <p-input label="นามสกุล" />
+        <p-input class="col-span-2" label="เบอร์โทร" />
         <p-input label="วันที่ยืม" />
         <p-input label="วันที่คืน" />
       </div>

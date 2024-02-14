@@ -51,6 +51,7 @@ import { ref } from 'vue'
 import { student, Admin } from '@/constant/mockData'
 import { saveUserInfo } from '@/stores/accountLogin'
 import { useRouter } from 'vue-router'
+import { useToast } from 'vue-toastification'
 
 import PInput from '@/components/textInput/index.vue'
 import PButton from '@/components/button/index.vue'
@@ -64,6 +65,7 @@ const check = ref(false)
 const isOpenModal = ref(false)
 
 const router = useRouter()
+const toast = useToast()
 
 function closeModal() {
   isOpenModal.value = false
@@ -74,15 +76,16 @@ function loginStudent() {
     (item) => item.username === suser.value && item.pass === spass.value
   )
   if (foundStudent) {
-    saveUserInfo({
-      username: foundStudent.username,
-      firstName: foundStudent.fname,
-      lastName: foundStudent.lname,
-      studentNo: foundStudent.studentNo,
-      parentFirstName: foundStudent.pfname,
-      parentLastName: foundStudent.plname,
-      parentPhone: foundStudent.pphone
-    })
+    // saveUserInfo({
+    //   username: foundStudent.username,
+    //   firstName: foundStudent.fname,
+    //   lastName: foundStudent.lname,
+    //   studentNo: foundStudent.studentNo,
+    //   parentFirstName: foundStudent.pfname,
+    //   parentLastName: foundStudent.plname,
+    //   parentPhone: foundStudent.pphone
+    // })
+    toast.info("ยังไม่เเปิดใช้งานระบบ", {timeout: 2000})
     console.log(`${foundStudent.fname}  ${foundStudent.lname} เข้าสู่ระบบ`)
   } else {
     console.log('ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง')
@@ -94,6 +97,7 @@ function loginAdmin() {
     (item) => item.username === auser.value && item.password === apass.value
   )
   if (!check.value) {
+    toast.error("กรุณายืนยันการเข้าสู่ระบบ", {timeout: 2000})
     console.log('กรุณายืนยันการเข้าสู่ระบบ')
   } else if (foundAdmin) {
     saveUserInfo({
@@ -102,9 +106,11 @@ function loginAdmin() {
       lastName: foundAdmin.lname,
       email: foundAdmin.email
     })
+    toast.success("เข้าสู่ระบบสำเร็จ", {timeout: 2000})
     console.log(`${foundAdmin.fname}  ${foundAdmin.lname} เข้าสู่ระบบ`)
     router.push('/admin')
   } else {
+    toast.error("ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง", {timeout: 2000})
     console.log('ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง')
   }
 }

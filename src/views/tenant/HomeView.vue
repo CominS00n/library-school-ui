@@ -41,37 +41,52 @@
       </div>
     </div>
     <div class="space-y-24 my-2 text-center container mx-auto">
-      <div>
+      <!-- <div>
         <n-divider title-placement="center"> หวมดหมู่ </n-divider>
         <div class="my-6 flex justify-around">
           <span v-for="bookType in bookTypes">
             <p-button type="outline" :text="bookType" />
           </span>
         </div>
-      </div>
+      </div> -->
       <div class="my-2 space-y-6">
         <n-divider title-placement="center"> รายการแนะนำ </n-divider>
         <n-card class="rounded-xl">
           <div class="grid grid-cols-5 gap-y-5 gap-x-2">
-            <n-card v-for="(book, i) in topBooks" :key="i" class="h-[460px]">
-              <div class="">
-                <img :src="`/image/${book.image}`" alt="" class="object-contain h-64 w-64" />
-              </div>
-              <h1 class="text-center font-semibold h-12">{{ book.name }}</h1>
-              <div class="detail text-start">
-                <p>{{ book.school }}</p>
-                <p>ประเภท: {{ book.type }}</p>
-                <p>จำนวน: {{ book.amount }}</p>
-              </div>
-              <div class="acton flex mt-3 justify-between">
-                <p-button text="รายละเอียด"></p-button>
-                <p-button text="ยืม" type="solid"></p-button>
-              </div>
-            </n-card>
+            <n-badge v-for="(book, i) in topBooks" value="hot" :offset="offset">
+              <n-card :key="i" class="h-[460px]">
+                <div class="">
+                  <img :src="`/image/${book.image}`" alt="" class="object-contain h-64 w-64" />
+                </div>
+                <h1 class="text-center font-semibold h-12">{{ book.name }}</h1>
+                <div class="detail text-start">
+                  <p>{{ book.school }}</p>
+                  <p>ประเภท: {{ book.type }}</p>
+                  <p>จำนวน: {{ book.amount }}</p>
+                </div>
+                <div class="acton flex mt-3 justify-between">
+                  <p-button :click="() => detailClick(book.id)" text="รายละเอียด"></p-button>
+                  <router-link :to="`/borrow-book/${book.id}`">
+                    <p-button text="ยืม" type="solid"></p-button>
+                  </router-link>
+                </div>
+              </n-card>
+            </n-badge>
           </div>
         </n-card>
       </div>
     </div>
+
+    <n-modal
+      v-model:show="isOpenModal"
+      class="custom-card w-[560px]"
+      preset="card"
+      title="รายละเอียด"
+      :bordered="false"
+      size="huge"
+    >
+    <sct-modal :book-i-d="modalBookId" />
+    </n-modal>
   </TransitionRoot>
 </template>
 
@@ -82,13 +97,25 @@ import { TransitionRoot } from '@headlessui/vue'
 
 import PButton from '@/components/button/index.vue'
 import icon from '@/components/icon/index.vue'
+import sctModal from '@/components/modal/descriptionModal.vue'
 
 const books = ref(bookList)
 const topBooks = ref([])
 
+const isOpenModal = ref(false)
+const modalBookId = ref(null)
+
+const offset = ref([-20, 12])
+
 watchEffect(() => {
   topBooks.value = [...books.value].sort((a, b) => b.borrowData - a.borrowData).slice(0, 5)
 })
+
+function detailClick(bookId) {
+  isOpenModal.value = true
+  modalBookId.value = bookId
+}
+
 </script>
 
 <style scoped>
