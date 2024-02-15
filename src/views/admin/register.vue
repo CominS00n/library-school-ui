@@ -25,23 +25,24 @@
       <n-tab-pane name="student" tab="Student">
         <n-divider title-placement="left">Student</n-divider>
         <div class="grid grid-cols-2 gap-6">
-          <p-input label="Student No." class="col-span-2" />
-          <p-input label="First Name" />
-          <p-input label="Last Name" />
-          <p-input label="Address" />
-          <p-input label="Phone" />
-          <p-input label="Username" disabled />
-          <p-input label="Password" type="password" password />
+          <p-input v-model="studentData.studentNo" label="Student No." class="col-span-2" />
+          <p-input v-model="studentData.firstName" label="First Name" />
+          <p-input v-model="studentData.lastName" label="Last Name" />
+          <p-input v-model="studentData.address" label="Address" />
+          <p-input v-model="studentData.Phone" label="Phone" />
+          <p-input v-model="studentData.studentNo" label="Username" disabled />
+          <p-input v-model="studentData.password" label="Password" type="password" password />
         </div>
         <n-divider title-placement="left">Parent</n-divider>
         <div class="grid grid-cols-2 gap-6 p-2">
-          <p-input label="First Name" />
-          <p-input label="Last Name" />
-          <p-input label="Phone" class="col-span-2" />
+          <p-input v-model="studentData.parentsName" label="First Name" />
+          <p-input v-model="studentData.parentLastname" label="Last Name" />
+          <p-input v-model="studentData.parentPhone" label="Phone" class="col-span-2" />
           <div class="col-span-2 flex gap-x-6 mt-6">
             <p-button type="outline" text="Cancel" mainClass="w-64" />
-            <p-button type="solid" text="Submit" mainClass="w-full" />
+            <p-button :click="studentRegister" type="solid" text="Submit" mainClass="w-full" />
           </div>
+          {{ studentData }}
         </div>
       </n-tab-pane>
     </n-tabs>
@@ -49,9 +50,48 @@
 </template>
 
 <script setup>
+import { reactive, ref } from 'vue'
+import { useToast } from 'vue-toastification'
+
+import useStudent from '@/componsable/student.js'
+
 import PInput from '@/components/textInput/index.vue'
 import PButton from '@/components/button/index.vue'
-import { ref } from 'vue';
+
+const { addStudent } = useStudent()
+
+const toast = useToast()
 
 const APass = ref('')
+
+const studentData = reactive({
+  studentNo: '',
+  firstName: '',
+  lastName: '',
+  address: '',
+  Phone: '',
+  password: '',
+  parentsName: '',
+  parentLastname: '',
+  parentPhone: ''
+})
+
+function studentRegister() {
+  if (
+    !studentData.studentNo ||
+    !studentData.firstName ||
+    !studentData.lastName ||
+    !studentData.address ||
+    !studentData.Phone ||
+    !studentData.password ||
+    !studentData.parentsName ||
+    !studentData.parentLastname ||
+    !studentData.parentPhone
+  ) {
+    toast.error('กรอกข้อมูลไม่ครบถ้วน', { timeout: 2000 })
+  } else {
+    addStudent(studentData)
+    toast.success('สมัครสมาชิกสำเร็จ', { timeout: 2000 })
+  }
+}
 </script>

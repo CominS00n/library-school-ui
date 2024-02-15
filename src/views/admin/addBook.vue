@@ -2,11 +2,11 @@
   <div class="shadow-md border rounded-lg p-3">
     <div class="flex divide-x">
       <div class="flex flex-col justify-center items-center gap-y-3 w-full p-3">
-        <div class="flex justify-center items-center h-96 w-fit" v-if="!data.imageUrl">
+        <div class="flex justify-center items-center h-96 w-fit" v-if="!imageUrl">
           <icon icon="heroicons-outline:photo" class="text-5xl" />
         </div>
         <!-- <img src="" alt="preview" class="h-96 w-fit" v-if="!imageUrl" /> -->
-        <img :src="imageUrl" alt="preview" class="h-96 w-fit" v-if="data.imageUrl" />
+        <img :src="imageUrl" alt="preview" class="h-96 w-fit" v-if="imageUrl" />
         <div class="flex items-center gap-x-2">
           <input
             @change="handleImageUpload"
@@ -32,9 +32,11 @@
     </div>
     <div class="flex justify-end gap-x-3">
       <p-button :click="goBack" text="ยกเลิก" type="outline" main-class="w-32" />
-      <p-button :click="submit" text="ตกลง" type="solid" main-class="w-80" />
+      <p-button :click="() => submit()" text="ตกลง" type="solid" main-class="w-80" />
+      <!-- <button @click="submit(data)">click</button> -->
     </div>
-    <!-- {{ data }} -->
+    {{ data }}
+    <!-- {{ imageUrl }} -->
   </div>
 </template>
 
@@ -44,33 +46,38 @@ import { bookTypes } from '@/constant/mockData'
 import { useRouter } from 'vue-router'
 import { useToast } from 'vue-toastification'
 
+import useBooks from '@/componsable/book_api'
+
 import PInput from '@/components/textInput/index.vue'
 import PSelect from '@/components/select/index.vue'
 import PButton from '@/components/button/index.vue'
 import icon from '@/components/icon/index.vue'
 
+const { addBook } = useBooks()
+
 const router = useRouter()
 const toast = useToast()
 
 const imageUrl = ref('')
+const file = ref(null)
 
 const typeBookSelect = bookTypes.slice(1).sort()
 
 const data = reactive({
-    name: '',
-    school: 'โรงเรียนเทศบาลชนะชัยศรี',
-    type: '',
-    amount: '',
-    description: '',
-    image: null,
-    borrowData: 0,
+  name: '',
+  school: 'โรงเรียนเทศบาลชนะชัยศรี',
+  type: '',
+  amount: 0,
+  description: '',
+  image: null,
+  borrowData: 0
 })
 
 const handleImageUpload = (event) => {
-  const file = event.target.files[0]
-  if (file) {
-    data.image = file
-    imageUrl.value = URL.createObjectURL(file)
+  file.value = event.target.files[0]
+  if (file.value) {
+    data.image = file.value
+    imageUrl.value = URL.createObjectURL(file.value)
   }
 }
 
@@ -79,7 +86,23 @@ function handleSelectBook(value) {
 }
 
 function submit() {
-  toast.success('เพิ่มรายการหนังสือสำเร็จ', { timeout: 2000 })
+  if (!data.name || !data.type || !data.amount || !data.image) {
+    toast.error('กรุณากรอกข้อมูลให้ครบถ้วน', { timeout: 2000 })
+  } else {
+    // console.log(file.value)
+    const formData = new FormData()
+    formData.append('file', file.value)
+    // console.log(formData)
+
+    addBook(data, formData)
+      // .then(() => {
+      //   toast.success('success', { timeout: 2000 })
+      // })
+      // .catch((error) => {
+      //   // การจัดการข้อผิดพลาดที่เกิดขึ้นจาก Axios
+      //   console.error('เกิดข้อผิดพลาดในการอัปโหลดไฟล์:', error.message)
+      // })
+  }
 }
 
 function goBack() {
