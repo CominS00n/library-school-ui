@@ -35,7 +35,7 @@
       <p-button :click="() => submit()" text="ตกลง" type="solid" main-class="w-80" />
       <!-- <button @click="submit(data)">click</button> -->
     </div>
-    {{ data }}
+    <!-- {{ data }} -->
     <!-- {{ imageUrl }} -->
   </div>
 </template>
