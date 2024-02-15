@@ -89,19 +89,20 @@ function submit() {
   if (!data.name || !data.type || !data.amount || !data.image) {
     toast.error('กรุณากรอกข้อมูลให้ครบถ้วน', { timeout: 2000 })
   } else {
-    // console.log(file.value)
     const formData = new FormData()
-    formData.append('file', file.value)
-    // console.log(formData)
+    formData.append('name', data.name)
+    formData.append('school', data.school)
+    formData.append('type', data.type)
+    formData.append('amount', data.amount)
+    formData.append('description', data.description)
+    formData.append('image', file.value)
+    formData.append('borrowData', data.borrowData)
 
-    addBook(data, formData)
-      // .then(() => {
-      //   toast.success('success', { timeout: 2000 })
-      // })
-      // .catch((error) => {
-      //   // การจัดการข้อผิดพลาดที่เกิดขึ้นจาก Axios
-      //   console.error('เกิดข้อผิดพลาดในการอัปโหลดไฟล์:', error.message)
-      // })
+    // check value 
+    // for (const value of formData.values()) {
+    //   console.log(value)
+    // }
+    addBook(formData)
   }
 }
 
