@@ -98,7 +98,7 @@ function submit() {
     formData.append('image', file.value)
     formData.append('borrowData', data.borrowData)
 
-    // check value 
+    // check values&keys in formData a
     // for (const value of formData.values()) {
     //   console.log(value)
     // }
