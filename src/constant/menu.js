@@ -24,11 +24,11 @@ export const menuItem_Admin = [
     icon: '',
     link: 'admin-add-book'
   },
-  {
-    title: 'Dashboard',
-    icon: '',
-    link: 'admin-dashboard'
-  },
+  // {
+  //   title: 'Dashboard',
+  //   icon: '',
+  //   link: 'admin-dashboard'
+  // },
   {
     title: 'Register',
     icon: '',

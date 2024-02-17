@@ -72,11 +72,11 @@ const router = createRouter({
           name: 'admin-return-book',
           component: () => import('@/views/admin/bookReturn.vue')
         },
-        {
-          path: 'admin-dashboard',
-          name: 'admin-dashboard',
-          component: () => import('@/views/admin/dashboard.vue')
-        },
+        // {
+        //   path: 'admin-dashboard',
+        //   name: 'admin-dashboard',
+        //   component: () => import('@/views/admin/dashboard.vue')
+        // },
         {
           path: 'admin-add-book',
           name: 'admin-add-book',

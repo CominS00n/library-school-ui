@@ -11,6 +11,19 @@ export const student = [
         pfname: 'first name',
         plname: 'last name',
         pphone: '000-000-0000'
+    },
+    {
+        id: '002',
+        studentNo: '234523525',
+        fname: 'first name',
+        lname: 'last name',
+        address: 'address',
+        phone: '000-000-0000',
+        username: '132234001',
+        pass: 'password',
+        pfname: 'first name',
+        plname: 'last name',
+        pphone: '000-000-0000'
     }
 ]
 
@@ -33,7 +46,7 @@ export const bookList = [
         id: '002',
         name: 'ใช้คลื่นพลังบวกดึงดูดพลังสุข',
         school: 'โรงเรียนเทศบาลชนะชัยศรี',
-        type: 'ปรัชญา',
+        type: 'ความรู้ทั่วไป',
         amount: 1,
         description: 'ใช้ "กฎแห่งแรงสั่นสะเทือน" ดึงดูดพลังงานบวกรอบตัว เพื่อบรรลุ "ความสุข" และ "เป้าหมายอันยิ่งใหญ่" กว่าที่คุณคิดฝัน',
         image: '002.jpg',
@@ -53,7 +66,7 @@ export const bookList = [
         id: '004',
         name: 'จิตวิทยาสายดาร์ก',
         school: 'โรงเรียนเทศบาลชนะชัยศรี',
-        type: 'ปรัชญา',
+        type: 'ภาษาศาสตร์',
         amount: 0,
         description: 'เมื่อคำพูดของคุณ สามารถควบคุมจิตใจคนได้',
         image: '001.jpg',
@@ -63,7 +76,7 @@ export const bookList = [
         id: '005',
         name: 'จิตวิทยาสายดาร์ก',
         school: 'โรงเรียนเทศบาลชนะชัยศรี',
-        type: 'ปรัชญา',
+        type: 'วิทยาศาสตร์',
         amount: 0,
         description: 'เมื่อคำพูดของคุณ สามารถควบคุมจิตใจคนได้',
         image: '001.jpg',

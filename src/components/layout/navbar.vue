@@ -73,6 +73,6 @@ const props = defineProps({
 
 function logout() {
   removeUserInfo()
-  router.push('/')
+  router.push('/login')
 }
 </script>
