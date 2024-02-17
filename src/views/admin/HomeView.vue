@@ -9,7 +9,7 @@
     leave-from="opacity-100 translate-y-0 sm:scale-100"
     leave-to="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
   >
-    <div class="bg-white h-svh">
+    <!-- <div class="bg-white h-svh">
       <div class="grid grid-cols-2 container mx-auto justify-center items-center h-full">
         <div class="text-7xl">
           <p class="text-[#7743db]">What book you</p>
@@ -39,7 +39,67 @@
           />
         </div>
       </div>
+    </div> -->
+    <div class="flex gap-x-6 cursor-default p-6">
+      <div class="border rounded-2xl shadow-md p-5">
+        <!-- <P class="text-xl font-semibold">หนังสือทั้งหมด</P> -->
+        <apexchart width="520" type="pie" :options="options" :series="getDataBook"></apexchart>
+      </div>
+      <div class="grid w-full gap-y-3">
+        <div
+          class="relative border w-full rounded-2xl shadow-md p-5 flex justify-center items-center text-4xl"
+        >
+          <p class="text-xl font-semibold absolute top-2 left-7">ทั้งหมด</p>
+          <n-number-animation
+            ref="numberAnimationInstRef"
+            show-separator
+            :from="0"
+            :to="100"
+            :active="true"
+          />
+          <p class="text-[20px] absolute bottom-2 right-7">เล่ม</p>
+        </div>
+        <div class="flex gap-x-6">
+          <div
+            class="relative border w-full rounded-2xl shadow-md p-5 flex justify-center items-center text-4xl"
+          >
+            <p class="text-xl font-semibold absolute top-2 left-7">ถูกยืม</p>
+            <div>
+              <n-number-animation
+                ref="numberAnimationInstRef"
+                show-separator
+                :from="0"
+                :to="100"
+                :active="true"
+              />
+              <span class="text-sm"
+                >/<n-number-animation
+                  ref="numberAnimationInstRef"
+                  show-separator
+                  :from="0"
+                  :to="1000"
+                  :active="true"
+              /></span>
+            </div>
+            <p class="text-[20px] absolute bottom-2 right-7">เล่ม</p>
+          </div>
+          <div
+            class="relative border w-full rounded-2xl shadow-md p-5 flex justify-center items-center text-4xl"
+          >
+            <p class="text-xl font-semibold absolute top-2 left-7">คืนแล้ว</p>
+            <n-number-animation
+              ref="numberAnimationInstRef"
+              show-separator
+              :from="0"
+              :to="100"
+              :active="true"
+            />
+            <p class="text-[20px] absolute bottom-2 right-7">เล่ม</p>
+          </div>
+        </div>
+      </div>
     </div>
+
     <div class="space-y-24 my-2 text-center container mx-auto">
       <div>
         <n-divider title-placement="center"> หวมดหมู่ </n-divider>
@@ -85,7 +145,7 @@
       :bordered="false"
       size="huge"
     >
-    <sct-modal :book-i-d="modalBookId" />
+      <sct-modal :book-i-d="modalBookId" />
     </n-modal>
   </TransitionRoot>
 </template>
@@ -96,13 +156,53 @@ import { bookTypes, bookList } from '@/constant/mockData'
 import { TransitionRoot } from '@headlessui/vue'
 
 import PButton from '@/components/button/index.vue'
-import icon from '@/components/icon/index.vue'
+// import icon from '@/components/icon/index.vue'
 import sctModal from '@/components/modal/descriptionModal.vue'
 
 const books = ref(bookList)
 const topBooks = ref([])
 const isOpenModal = ref(false)
 const modalBookId = ref(null)
+
+const totalBorrowDataByType = bookList.reduce((summary, book) => {
+  const { type, borrowData } = book
+
+  if (!summary[type]) {
+    summary[type] = 0
+  }
+
+  summary[type] += borrowData
+
+  return summary
+}, {})
+
+const totalBorrowDataArray = Object.entries(totalBorrowDataByType).map(
+  ([type, totalBorrowData]) => ({
+    type,
+    totalBorrowData
+  })
+)
+
+const getTypeBook = [...new Set(totalBorrowDataArray.map((book) => book.type))]
+const getDataBook = [...new Set(totalBorrowDataArray.map((book) => book.totalBorrowData))]
+
+const options = ref({
+  labels: getTypeBook,
+  responsive: [
+    {
+      breakpoint: 480,
+      options: {
+        chart: {
+          width: 200
+        },
+        legend: {
+          position: 'bottom'
+        }
+      }
+    }
+  ]
+})
+const series = ref([44, 55, 41, 17, 15])
 
 const offset = ref([-20, 12])
 
@@ -114,7 +214,6 @@ function detailClick(bookId) {
   isOpenModal.value = true
   modalBookId.value = bookId
 }
-
 </script>
 
 <style scoped>
