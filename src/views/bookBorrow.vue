@@ -7,16 +7,16 @@
         <p>{{ book.school }} / {{ book.type }} / {{ book.amount }}</p>
       </div>
       <div class="grid content-center gap-3">
-        <!-- <p class="col-span-2">รายละเอียด</p> -->
+        <p class="col-span-2 font-semibold mb-3">ข้อมูลการยืม</p>
         <p-input v-model="name" class="col-span-2" label="" disabled />
-        <p-input class="col-span-2" label="รหัส"  />
+        <p-input v-model="BorrowBookData" class="col-span-2" label="รหัส"  />
         <p-input label="ชื่อ" />
         <p-input label="นามสกุล" />
         <p-input class="col-span-2" label="เบอร์โทร" />
-        <p-input label="วันที่ยืม" />
-        <p-input label="วันที่คืน" />
+        <p-input label="วันที่ยืม" type="date" />
+        <p-input label="วันที่คืน" type="date" />
       </div>
-      <div class="col-span-2 flex justify-end gap-x-3">
+      <div class="col-span-2 flex justify-end gap-x-3 mt-3">
         <p-button :click="goBack" type="outline" text="ยกเลิก" main-class="w-32" />
         <p-button
           type="solid"
@@ -30,7 +30,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { reactive, ref } from 'vue'
 import { bookList } from '@/constant/mockData'
 import { useRouter, useRoute } from 'vue-router'
 
@@ -44,6 +44,14 @@ const id = ref(route.params.id)
 const book = ref(bookList.find((book) => book.id === id.value))
 
 const name = book.value.name
+
+const borrowBookData = reactive({
+  book_id: route.params.id,
+  fname: '',
+  lname: '',
+  borrow_date: new Date(),
+  return_date: new Date()
+})
 
 function goBack() {
   router.go(-1)

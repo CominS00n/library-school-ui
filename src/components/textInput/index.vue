@@ -3,7 +3,7 @@
       <p class="text-slate-500" :style="labelFont">{{ label }}</p>
       <div class="relative flex items-center min-w-64" :class="inputClass">
         <input
-          class="border h-10 rounded-full px-4 text-slate-700 text-sm hover:border-[#7743db] focus:outline-none focus:border-[#7743db] w-full"
+          :class="`border h-10 rounded-full px-4 text-slate-700 text-sm focus:outline-none focus:border-[#7743db] w-full ${disabled ? 'cursor-no-drop' : 'hover:border-[#7743db]'}`"
           :type="type"
           :placeholder="placeholder"
           :value="modelValue"

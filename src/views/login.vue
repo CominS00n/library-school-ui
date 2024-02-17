@@ -49,7 +49,7 @@
 <script setup>
 import { ref } from 'vue'
 import { student, Admin } from '@/constant/mockData'
-import { saveUserInfo } from '@/stores/accountLogin'
+import { saveUserInfo} from '@/stores/accountLogin'
 import { useRouter } from 'vue-router'
 import { useToast } from 'vue-toastification'
 
@@ -63,6 +63,7 @@ const apass = ref('admin')
 
 const check = ref(false)
 const isOpenModal = ref(false)
+const isLoginStatus = ref(false)
 
 const router = useRouter()
 const toast = useToast()
@@ -76,17 +77,18 @@ function loginStudent() {
     (item) => item.username === suser.value && item.pass === spass.value
   )
   if (foundStudent) {
-    // saveUserInfo({
-    //   username: foundStudent.username,
-    //   firstName: foundStudent.fname,
-    //   lastName: foundStudent.lname,
-    //   studentNo: foundStudent.studentNo,
-    //   parentFirstName: foundStudent.pfname,
-    //   parentLastName: foundStudent.plname,
-    //   parentPhone: foundStudent.pphone
-    // })
+    saveUserInfo({
+      username: foundStudent.username,
+      firstName: foundStudent.fname,
+      lastName: foundStudent.lname,
+      studentNo: foundStudent.studentNo,
+      parentFirstName: foundStudent.pfname,
+      parentLastName: foundStudent.plname,
+      parentPhone: foundStudent.pphone
+    })
     toast.info("ยังไม่เเปิดใช้งานระบบ", {timeout: 2000})
     console.log(`${foundStudent.fname}  ${foundStudent.lname} เข้าสู่ระบบ`)
+    isLoginStatus.value = true
   } else {
     console.log('ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง')
   }

@@ -145,13 +145,13 @@ export const Admin = [
     }
 ]
 
-export const borrow = [
+export const borrows = [
     {
         id: '001',
         book_id: '001',
         fname: 'first name',
         lname: 'last name',
-        borrow_date: '',
-        return_date: '',
+        borrow_date: '10/2/2567',
+        return_date: '16/2/2567',
     }
 ]
