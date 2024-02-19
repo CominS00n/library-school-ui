@@ -84,6 +84,7 @@ const data = reactive({
 
 const handleImageUpload = (event) => {
   file.value = event.target.files[0]
+  console.log(file.value)
   if (file.value) {
     data.image = file.value
     imageUrl.value = URL.createObjectURL(file.value)
@@ -111,7 +112,7 @@ function submit() {
     // for (const value of formData.values()) {
     //   console.log(value)
     // }
-    addBook(formData)
+    // addBook(formData)
   }
 }
 

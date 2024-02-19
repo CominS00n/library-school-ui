@@ -39,7 +39,7 @@
             <p-input v-model="studentData.firstName" label="First Name" />
             <p-input v-model="studentData.lastName" label="Last Name" />
             <p-input v-model="studentData.address" label="Address" />
-            <p-input v-model="studentData.Phone" label="Phone" />
+            <p-input v-model="studentData.tel" label="Phone" />
             <p-input v-model="studentData.studentNo" label="Username" disabled />
             <p-input v-model="studentData.password" label="Password" type="password" password />
           </div>
@@ -47,12 +47,12 @@
           <div class="grid grid-cols-2 gap-6 p-2">
             <p-input v-model="studentData.parentsName" label="First Name" />
             <p-input v-model="studentData.parentLastname" label="Last Name" />
-            <p-input v-model="studentData.parentPhone" label="Phone" class="col-span-2" />
+            <p-input v-model="studentData.parentTel" label="Phone" class="col-span-2" />
             <div class="col-span-2 flex gap-x-6 mt-6">
               <p-button type="outline" text="Cancel" mainClass="w-64" />
               <p-button :click="studentRegister" type="solid" text="Submit" mainClass="w-full" />
             </div>
-            {{ studentData }}
+            <!-- {{ studentData }} -->
           </div>
         </n-tab-pane>
       </n-tabs>
@@ -81,11 +81,12 @@ const studentData = reactive({
   firstName: '',
   lastName: '',
   address: '',
-  Phone: '',
+  tel: '',
+  username: '',
   password: '',
   parentsName: '',
   parentLastname: '',
-  parentPhone: ''
+  parentTel: ''
 })
 
 function studentRegister() {
@@ -94,14 +95,15 @@ function studentRegister() {
     !studentData.firstName ||
     !studentData.lastName ||
     !studentData.address ||
-    !studentData.Phone ||
+    !studentData.tel ||
     !studentData.password ||
     !studentData.parentsName ||
     !studentData.parentLastname ||
-    !studentData.parentPhone
+    !studentData.parentTel
   ) {
     toast.error('กรอกข้อมูลไม่ครบถ้วน', { timeout: 2000 })
   } else {
+    studentData.username = studentData.studentNo
     addStudent(studentData)
     toast.success('สมัครสมาชิกสำเร็จ', { timeout: 2000 })
   }
