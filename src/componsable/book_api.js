@@ -1,9 +1,12 @@
 import { ref } from 'vue'
+import { useToast } from 'vue-toastification'
+
 import axios from 'axios'
 
 axios.defaults.baseURL = 'http://127.0.0.1:8000/api/'
 
-const api_path = ref('bookList')
+// const api_path = ref('bookList')
+const toast = useToast()
 
 export default function useBooks() {
   const bookDetails = ref([])
@@ -11,7 +14,7 @@ export default function useBooks() {
   const errors = ref([])
 
   const getBookDetails = async () => {
-    const response = await axios.get(api_path)
+    const response = await axios.get('bookList')
     bookDetails.value = response.data
   }
 
@@ -28,7 +31,8 @@ export default function useBooks() {
         data: data
       })
       location.reload()
-    } catch(error) {
+      toast.success('บันทึกรายการหนังสือ', { timeout: 2000 })
+    } catch (error) {
       console.error('Error adding Book:', error)
       if (error.response && error.response.status === 422) {
         errors.value = error.response.data.errors

@@ -12,11 +12,10 @@
     <div class="shadow-md border rounded-lg p-3">
       <div class="flex divide-x">
         <div class="flex flex-col justify-center items-center gap-y-3 w-full p-3">
-          <div class="flex justify-center items-center h-96 w-fit" v-if="!data.imageUrl">
+          <div class="flex justify-center items-center h-96 w-fit" v-if="!imageUrl">
             <icon icon="heroicons-outline:photo" class="text-5xl" />
           </div>
-          <!-- <img src="" alt="preview" class="h-96 w-fit" v-if="!imageUrl" /> -->
-          <img :src="imageUrl" alt="preview" class="h-96 w-fit" v-if="data.imageUrl" />
+          <img :src="imageUrl" alt="preview" class="h-96 w-fit" v-if="imageUrl" />
           <div class="flex items-center gap-x-2">
             <input
               @change="handleImageUpload"
@@ -100,10 +99,10 @@ function submit() {
     toast.error('กรุณากรอกข้อมูลให้ครบถ้วน', { timeout: 2000 })
   } else {
     const formData = new FormData()
-    formData.append('name', data.name)
+    formData.append('nameBook', data.name)
     formData.append('school', data.school)
-    formData.append('type', data.type)
-    formData.append('amount', data.amount)
+    formData.append('typeBook', data.type)
+    formData.append('amountBook', data.amount)
     formData.append('description', data.description)
     formData.append('image', file.value)
     formData.append('borrowData', data.borrowData)

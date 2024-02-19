@@ -10,7 +10,7 @@
     leave-to="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
   >
   <div class="flex justify-center items-center h-svh">
-    <div class="grid grid-cols-2 bg-white shadow-lg p-6 rounded-md">
+    <div class="grid grid-cols-2 bg-white shadow-lg p-6 rounded-md border">
       <h1 class="col-span-2 uppercase text-3xl font-semibold mb-6">Borrow book</h1>
       <div class="flex flex-col items-center justify-center gap-y-3">
         <img :src="`/image/${book.image}`" alt="" class="object-contain h-96" />

@@ -31,32 +31,33 @@
           </div>
         </n-tab-pane>
 
-      <!-- Register Student -->
-      <n-tab-pane name="student" tab="Student">
-        <n-divider title-placement="left">Student</n-divider>
-        <div class="grid grid-cols-2 gap-6">
-          <p-input v-model="studentData.studentNo" label="Student No." class="col-span-2" />
-          <p-input v-model="studentData.firstName" label="First Name" />
-          <p-input v-model="studentData.lastName" label="Last Name" />
-          <p-input v-model="studentData.address" label="Address" />
-          <p-input v-model="studentData.Phone" label="Phone" />
-          <p-input v-model="studentData.studentNo" label="Username" disabled />
-          <p-input v-model="studentData.password" label="Password" type="password" password />
-        </div>
-        <n-divider title-placement="left">Parent</n-divider>
-        <div class="grid grid-cols-2 gap-6 p-2">
-          <p-input v-model="studentData.parentsName" label="First Name" />
-          <p-input v-model="studentData.parentLastname" label="Last Name" />
-          <p-input v-model="studentData.parentPhone" label="Phone" class="col-span-2" />
-          <div class="col-span-2 flex gap-x-6 mt-6">
-            <p-button type="outline" text="Cancel" mainClass="w-64" />
-            <p-button :click="studentRegister" type="solid" text="Submit" mainClass="w-full" />
+        <!-- Register Student -->
+        <n-tab-pane name="student" tab="Student">
+          <n-divider title-placement="left">Student</n-divider>
+          <div class="grid grid-cols-2 gap-6">
+            <p-input v-model="studentData.studentNo" label="Student No." class="col-span-2" />
+            <p-input v-model="studentData.firstName" label="First Name" />
+            <p-input v-model="studentData.lastName" label="Last Name" />
+            <p-input v-model="studentData.address" label="Address" />
+            <p-input v-model="studentData.Phone" label="Phone" />
+            <p-input v-model="studentData.studentNo" label="Username" disabled />
+            <p-input v-model="studentData.password" label="Password" type="password" password />
           </div>
-          {{ studentData }}
-        </div>
-      </n-tab-pane>
-    </n-tabs>
-  </div>
+          <n-divider title-placement="left">Parent</n-divider>
+          <div class="grid grid-cols-2 gap-6 p-2">
+            <p-input v-model="studentData.parentsName" label="First Name" />
+            <p-input v-model="studentData.parentLastname" label="Last Name" />
+            <p-input v-model="studentData.parentPhone" label="Phone" class="col-span-2" />
+            <div class="col-span-2 flex gap-x-6 mt-6">
+              <p-button type="outline" text="Cancel" mainClass="w-64" />
+              <p-button :click="studentRegister" type="solid" text="Submit" mainClass="w-full" />
+            </div>
+            {{ studentData }}
+          </div>
+        </n-tab-pane>
+      </n-tabs>
+    </div>
+  </TransitionRoot>
 </template>
 
 <script setup>
