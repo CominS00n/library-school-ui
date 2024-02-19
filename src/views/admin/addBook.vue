@@ -20,8 +20,7 @@
             <input
               @change="handleImageUpload"
               type="file"
-              name="image"
-              id="imageInput"
+              ref="myFile"
               class="block pr-4 w-fit border border-gray-200 shadow-sm rounded-full text-sm focus:z-10 focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none file:bg-gray-50 file:border-0 file:me-4 file:py-2 file:px-4"
             />
           </div>
@@ -43,7 +42,6 @@
         <p-button :click="goBack" text="ยกเลิก" type="outline" main-class="w-32" />
         <p-button :click="submit" text="ตกลง" type="solid" main-class="w-80" />
       </div>
-      <!-- {{ data }} -->
     </div>
   </TransitionRoot>
 </template>
@@ -54,6 +52,8 @@ import { bookTypes } from '@/constant/mockData'
 import { useRouter } from 'vue-router'
 import { useToast } from 'vue-toastification'
 import { TransitionRoot } from '@headlessui/vue'
+import { storage } from '@/stores/firebase'
+import { uploadBytes } from '@firebase/storage'
 
 import useBooks from '@/componsable/book_api'
 
@@ -68,9 +68,10 @@ const router = useRouter()
 const toast = useToast()
 
 const imageUrl = ref('')
-const file = ref(null)
+const file = ref()
 
 const typeBookSelect = bookTypes.slice(1).sort()
+const uploadImagePath = ref('folder/myfile.png')
 
 const data = reactive({
   name: '',
@@ -84,7 +85,6 @@ const data = reactive({
 
 const handleImageUpload = (event) => {
   file.value = event.target.files[0]
-  console.log(file.value)
   if (file.value) {
     data.image = file.value
     imageUrl.value = URL.createObjectURL(file.value)
@@ -96,24 +96,38 @@ function handleSelectBook(value) {
 }
 
 function submit() {
-  if (!data.name || !data.type || !data.amount || !data.image) {
-    toast.error('กรุณากรอกข้อมูลให้ครบถ้วน', { timeout: 2000 })
-  } else {
-    const formData = new FormData()
-    formData.append('nameBook', data.name)
-    formData.append('school', data.school)
-    formData.append('typeBook', data.type)
-    formData.append('amountBook', data.amount)
-    formData.append('description', data.description)
-    formData.append('image', file.value)
-    formData.append('borrowData', data.borrowData)
-
+  // if (!data.name || !data.type || !data.amount ) {
+  //   toast.error('กรุณากรอกข้อมูลให้ครบถ้วน', { timeout: 2000 })
+  // } else {
+    // const formData = new FormData()
+    // formData.append('nameBook', data.name)
+    // formData.append('school', data.school)
+    // formData.append('typeBook', data.type)
+    // formData.append('amountBook', data.amount)
+    // formData.append('description', data.description)
+    // formData.append('image', file.value)
+    // formData.append('borrowData', data.borrowData)
     // check values&keys in formData a
     // for (const value of formData.values()) {
     //   console.log(value)
     // }
+    uploadToFirebase()
     // addBook(formData)
-  }
+  // }
+}
+
+
+const uploadToFirebase = () => {
+  const fileName = file.value.name
+  const storageRef = ref(storage, `folder/${fileName}`)
+  const objectFile = file.value
+
+  uploadBytes(storageRef, objectFile)
+  .then((snapshot) => {
+    console.log('Upload Successful')
+    uploadImagePath.value = snapshot.metadata.fullPath
+    console.log(uploadImagePath)
+  })
 }
 
 function goBack() {
