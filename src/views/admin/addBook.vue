@@ -42,6 +42,7 @@
         <p-button :click="goBack" text="ยกเลิก" type="outline" main-class="w-32" />
         <p-button :click="submit" text="ตกลง" type="solid" main-class="w-80" />
       </div>
+      {{ data }}
     </div>
   </TransitionRoot>
 </template>
@@ -70,7 +71,6 @@ const imageUrl = ref('')
 const file = ref()
 
 const typeBookSelect = bookTypes.slice(1).sort()
-// const uploadImagePath = ref('folder/myfile.png')
 
 const data = reactive({
   name: '',
@@ -78,7 +78,7 @@ const data = reactive({
   type: '',
   amount: '',
   description: '',
-  image: null,
+  image: '',
   borrowData: 0
 })
 
@@ -94,41 +94,19 @@ function handleSelectBook(value) {
   data.type = value
 }
 
+
 function submit() {
-  uploadImage(file.value)
-  // if (!data.name || !data.type || !data.amount ) {
-  //   toast.error('กรุณากรอกข้อมูลให้ครบถ้วน', { timeout: 2000 })
-  // } else {
-    // const formData = new FormData()
-    // formData.append('nameBook', data.name)
-    // formData.append('school', data.school)
-    // formData.append('typeBook', data.type)
-    // formData.append('amountBook', data.amount)
-    // formData.append('description', data.description)
-    // formData.append('image', file.value)
-    // formData.append('borrowData', data.borrowData)
-    // check values&keys in formData a
-    // for (const value of formData.values()) {
-    //   console.log(value)
-    // }
-    // uploadToFirebase()
-    // addBook(formData)
-  // }
+  if (!data.name || !data.type || !data.amount) {
+    toast.error('กรุณากรอกข้อมูลให้ครบถ้วน', { timeout: 2000 })
+  } else {
+    uploadImage(file.value).then((uploadedPath) => {
+      console.log(uploadedPath)
+      data.image = uploadedPath
+      // addBook(data)
+    })
+  }
+
 }
-
-
-// const uploadToFirebase = () => {
-//   const fileName = file.value.name
-//   const storageRef = ref(storage, `folder/${fileName}`)
-//   const objectFile = file.value
-
-//   uploadBytes(storageRef, objectFile)
-//   .then((snapshot) => {
-//     console.log('Upload Successful')
-//     uploadImagePath.value = snapshot.metadata.fullPath
-//     console.log(uploadImagePath)
-//   })
-// }
 
 function goBack() {
   data.image = null
