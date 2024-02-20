@@ -9,11 +9,6 @@ export const menuItem_Admin = [
     icon: '',
     link: 'admin-book-list'
   },
-  // {
-  //   title: 'ยืมหนังสือ',
-  //   icon: '',
-  //   link: 'admin-borrow-book'
-  // },
   {
     title: 'คืนหนังสือ',
     icon: '',
@@ -24,11 +19,6 @@ export const menuItem_Admin = [
     icon: '',
     link: 'admin-add-book'
   },
-  // {
-  //   title: 'Dashboard',
-  //   icon: '',
-  //   link: 'admin-dashboard'
-  // },
   {
     title: 'Register',
     icon: '',

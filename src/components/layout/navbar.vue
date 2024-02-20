@@ -21,12 +21,12 @@
           </li>
         </ul>
       </div>
-      <div v-if="!auth">
+      <div v-if="!isLogin">
         <router-link to="/login"
           ><p-button text="เข้าสู่ระบบ" type="outline" main-class="w-24 p-0 h-9"
         /></router-link>
       </div>
-      <div v-if="auth" class="dropdown dropdown-end hover:bg-gray-50">
+      <div v-if="isLogin" class="dropdown dropdown-end hover:bg-gray-50">
         <div tabindex="0" role="button">
           <div class="flex items-center gap-x-2 text-sm font-semibold leading-6 text-gray-900">
             <div
@@ -48,14 +48,14 @@
           </li>
         </ul>
       </div>
-      <!-- {{ auth }} -->
+      <!-- {{ isLogin }} -->
     </div>
   </div>
 </template>
 
 <script setup>
 import { useRouter } from 'vue-router'
-import { getUserInfo, isAuthenticated, removeUserInfo} from '@/stores/accountLogin'
+import { getUserInfo, isAuthenticated, removeUserInfo, isLogin } from '@/stores/accountLogin'
 
 import icon from '@/components/icon/index.vue'
 import PButton from '@/components/button/index.vue'

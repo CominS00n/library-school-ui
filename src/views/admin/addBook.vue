@@ -52,8 +52,7 @@ import { bookTypes } from '@/constant/mockData'
 import { useRouter } from 'vue-router'
 import { useToast } from 'vue-toastification'
 import { TransitionRoot } from '@headlessui/vue'
-import { storage } from '@/stores/firebase'
-import { uploadBytes } from '@firebase/storage'
+import { uploadImage } from '@/stores/uploadImage'
 
 import useBooks from '@/componsable/book_api'
 
@@ -71,7 +70,7 @@ const imageUrl = ref('')
 const file = ref()
 
 const typeBookSelect = bookTypes.slice(1).sort()
-const uploadImagePath = ref('folder/myfile.png')
+// const uploadImagePath = ref('folder/myfile.png')
 
 const data = reactive({
   name: '',
@@ -96,6 +95,7 @@ function handleSelectBook(value) {
 }
 
 function submit() {
+  uploadImage(file.value)
   // if (!data.name || !data.type || !data.amount ) {
   //   toast.error('กรุณากรอกข้อมูลให้ครบถ้วน', { timeout: 2000 })
   // } else {
@@ -111,24 +111,24 @@ function submit() {
     // for (const value of formData.values()) {
     //   console.log(value)
     // }
-    uploadToFirebase()
+    // uploadToFirebase()
     // addBook(formData)
   // }
 }
 
 
-const uploadToFirebase = () => {
-  const fileName = file.value.name
-  const storageRef = ref(storage, `folder/${fileName}`)
-  const objectFile = file.value
+// const uploadToFirebase = () => {
+//   const fileName = file.value.name
+//   const storageRef = ref(storage, `folder/${fileName}`)
+//   const objectFile = file.value
 
-  uploadBytes(storageRef, objectFile)
-  .then((snapshot) => {
-    console.log('Upload Successful')
-    uploadImagePath.value = snapshot.metadata.fullPath
-    console.log(uploadImagePath)
-  })
-}
+//   uploadBytes(storageRef, objectFile)
+//   .then((snapshot) => {
+//     console.log('Upload Successful')
+//     uploadImagePath.value = snapshot.metadata.fullPath
+//     console.log(uploadImagePath)
+//   })
+// }
 
 function goBack() {
   data.image = null

@@ -25,7 +25,7 @@
             <p-input label="Username" />
             <p-input v-model="APass" label="Password" type="password" password />
             <div class="col-span-2 flex gap-x-6 mt-6">
-              <p-button type="outline" text="Cancel" mainClass="w-64" />
+              <p-button :click="cancelButton" type="outline" text="Cancel" mainClass="w-64" />
               <p-button type="solid" text="Submit" mainClass="w-full" />
             </div>
           </div>
@@ -49,7 +49,7 @@
             <p-input v-model="studentData.parentLastname" label="Last Name" />
             <p-input v-model="studentData.parentTel" label="Phone" class="col-span-2" />
             <div class="col-span-2 flex gap-x-6 mt-6">
-              <p-button type="outline" text="Cancel" mainClass="w-64" />
+              <p-button :click="cancelButton" type="outline" text="Cancel" mainClass="w-64" />
               <p-button :click="studentRegister" type="solid" text="Submit" mainClass="w-full" />
             </div>
             <!-- {{ studentData }} -->
@@ -62,6 +62,7 @@
 
 <script setup>
 import { reactive, ref } from 'vue'
+import { useRouter } from 'vue-router'
 import { TransitionRoot } from '@headlessui/vue'
 import { useToast } from 'vue-toastification'
 
@@ -72,6 +73,7 @@ import PButton from '@/components/button/index.vue'
 
 const { addStudent } = useStudent()
 
+const router = useRouter()
 const toast = useToast()
 
 const APass = ref('')
@@ -107,5 +109,9 @@ function studentRegister() {
     addStudent(studentData)
     toast.success('สมัครสมาชิกสำเร็จ', { timeout: 2000 })
   }
+}
+
+const cancelButton = () => {
+  router.push('/admin')
 }
 </script>

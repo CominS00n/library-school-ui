@@ -1,21 +1,28 @@
-const storageKey = 'user_info';
+// import { ref } from 'vue'
 
-let userInfo = JSON.parse(localStorage.getItem(storageKey)) || {};
+const storageKey = 'user_info'
+
+let userInfo = JSON.parse(localStorage.getItem(storageKey)) || {}
+let isLogin = false
 
 export function saveUserInfo(info) {
-  userInfo = info;
-  localStorage.setItem(storageKey, JSON.stringify(userInfo));
+  userInfo = info
+  localStorage.setItem(storageKey, JSON.stringify(userInfo))
+  isLogin = true
 }
 
 export function getUserInfo() {
-  return userInfo;
+  return userInfo
 }
 
 export function removeUserInfo() {
-  userInfo = {};
-  localStorage.removeItem(storageKey);
+  userInfo = {}
+  isLogin = !isLogin
+  localStorage.removeItem(storageKey)
 }
 
 export function isAuthenticated() {
-  return Object.keys(userInfo).length !== 0;
+  return Object.keys(userInfo).length !== 0
 }
+
+export { isLogin }
