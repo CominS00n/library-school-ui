@@ -103,6 +103,7 @@ function submit() {
       console.log(uploadedPath)
       data.image = uploadedPath
       // addBook(data)
+      toast.success('บันทึกข้อมูลสำเร็จ', {timeout:2000})
     })
   }
 

@@ -15,18 +15,18 @@
         <n-tab-pane name="admin" tab="Admin">
           <n-divider title-placement="left">Librarian</n-divider>
           <div class="grid grid-cols-2 gap-6 p-2">
-            <p-input label="First Name" />
-            <p-input label="Last Name" />
-            <p-input label="Address" class="col-span-2" />
-            <p-input label="Email" />
-            <p-input label="Phone" />
-            <p-input label="Job position" />
-            <p-input label="School" />
-            <p-input label="Username" />
-            <p-input v-model="APass" label="Password" type="password" password />
+            <p-input v-model="adminData.firstName" label="First Name" />
+            <p-input v-model="adminData.lastName" label="Last Name" />
+            <p-input v-model="adminData.address" label="Address" class="col-span-2" />
+            <p-input v-model="adminData.Email" label="Email" />
+            <p-input v-model="adminData.tel" label="Phone" />
+            <p-input v-model="adminData.jobPostion" label="Job position" />
+            <p-input v-model="adminData.school" label="School" />
+            <p-input v-model="adminData.username" label="Username" />
+            <p-input v-model="adminData.password" label="Password" type="password" password />
             <div class="col-span-2 flex gap-x-6 mt-6">
               <p-button :click="cancelButton" type="outline" text="Cancel" mainClass="w-64" />
-              <p-button type="solid" text="Submit" mainClass="w-full" />
+              <p-button :click="adminRegister" type="solid" text="Submit" mainClass="w-full" />
             </div>
           </div>
         </n-tab-pane>
@@ -67,16 +67,16 @@ import { TransitionRoot } from '@headlessui/vue'
 import { useToast } from 'vue-toastification'
 
 import useStudent from '@/componsable/student.js'
+import useAdmin from '@/componsable/admin'
 
 import PInput from '@/components/textInput/index.vue'
 import PButton from '@/components/button/index.vue'
 
 const { addStudent } = useStudent()
+const { addAdmin } = useAdmin()
 
 const router = useRouter()
 const toast = useToast()
-
-const APass = ref('')
 
 const studentData = reactive({
   studentNo: '',
@@ -89,6 +89,18 @@ const studentData = reactive({
   parentsName: '',
   parentLastname: '',
   parentTel: ''
+})
+
+const adminData = reactive({
+  firstName: '',
+  lastName: '',
+  address: '',
+  Email: '',
+  tel: '',
+  jobPostion: '',
+  school: '',
+  username: '',
+  password: ''
 })
 
 function studentRegister() {
@@ -107,6 +119,25 @@ function studentRegister() {
   } else {
     studentData.username = studentData.studentNo
     addStudent(studentData)
+    toast.success('สมัครสมาชิกสำเร็จ', { timeout: 2000 })
+  }
+}
+
+function adminRegister() {
+  if (
+    !adminData.firstName ||
+    !adminData.lastName ||
+    !adminData.address ||
+    !adminData.Email ||
+    !adminData.jobPostion ||
+    !adminData.username ||
+    !adminData.password ||
+    !adminData.tel ||
+    !adminData.school
+  ) {
+    toast.error('กรอกข้อมูลไม่ครบถ้วน', { timeout: 2000 })
+  } else {
+    addAdmin(adminData)
     toast.success('สมัครสมาชิกสำเร็จ', { timeout: 2000 })
   }
 }

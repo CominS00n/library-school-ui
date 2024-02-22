@@ -48,18 +48,21 @@
         </ul>
       </div>
       <div v-show="dataList === 'grid'">
-        <grid :search-filter="searchInput" :type-filter="typeFilter" />
+        <grid :bookData="listBook" :search-filter="searchInput" :type-filter="typeFilter" />
+        {{ listTest }}
       </div>
       <div v-show="dataList === 'list'">
-        <list :search-filter="searchInput" :type-filter="typeFilter" />
+        <list :bookData="listBook" :search-filter="searchInput" :type-filter="typeFilter" />
       </div>
     </div>
   </TransitionRoot>
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import { bookTypes } from '@/constant/mockData'
+import { bookList } from '@/constant/mockData'
+import { getImageURL } from '@/stores/getImageURL'
 import { TransitionRoot } from '@headlessui/vue'
 
 import textInput from '@/components/textInput/index.vue'
@@ -71,6 +74,22 @@ const dataList = ref('grid')
 const numType = ref(0)
 const typeFilter = ref('')
 const searchInput = ref('')
+const listBook = ref([])
+
+onMounted(async () => {
+  // const updatedBookList = []
+
+  for (const book of bookList) {
+    book.imageURL = await someOtherFunction(book.image)
+    listBook.value.push(book)
+  }
+})
+
+async function someOtherFunction(url) {
+  const downloadedURL = await getImageURL(url)
+  console.log(downloadedURL)
+  return downloadedURL
+}
 
 function isSelectType(bookType, i) {
   numType.value = i

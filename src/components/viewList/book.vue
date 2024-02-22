@@ -1,8 +1,8 @@
 <template>
   <div class="grid gap-y-2">
-    <div class="border p-4 grid grid-cols-12 items-center gap-x-5" v-for="book in bookList">
+    <div class="border p-4 grid grid-cols-12 items-center gap-x-5" v-for="book in props.bookData">
       <div class="">
-        <img :src="`/image/${book.image}`" alt="image" class="object-contain h-32 w-24" />
+        <img :src="book.imageURL" alt="image" class="object-contain h-32 w-24" />
       </div>
       <div class="col-span-11 grid grid-cols-6">
         <div class="flex flex-col justify-center">
@@ -30,12 +30,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import { bookList } from '@/constant/mockData'
-
 import PButton from '@/components/button/index.vue'
-
-const counts = ref(20)
 
 const props = defineProps({
   searchFilter: {
@@ -45,6 +40,10 @@ const props = defineProps({
   typeFilter: {
     type: String,
     default: ''
+  },
+  bookData: {
+    type: Array,
+    default: []
   }
 })
 </script>

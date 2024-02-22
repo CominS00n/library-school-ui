@@ -39,7 +39,7 @@ export const bookList = [
         type: 'ปรัชญา',
         amount: 1,
         description: 'เมื่อคำพูดของคุณ สามารถควบคุมจิตใจคนได้',
-        image: '001.jpg',
+        image: 'folder/001.jpg',
         borrowData: 10
     },
     {
@@ -49,7 +49,7 @@ export const bookList = [
         type: 'ความรู้ทั่วไป',
         amount: 1,
         description: 'ใช้ "กฎแห่งแรงสั่นสะเทือน" ดึงดูดพลังงานบวกรอบตัว เพื่อบรรลุ "ความสุข" และ "เป้าหมายอันยิ่งใหญ่" กว่าที่คุณคิดฝัน',
-        image: '002.jpg',
+        image: 'folder/002.jpg',
         borrowData: 13
     },
     {
@@ -59,7 +59,7 @@ export const bookList = [
         type: 'ปรัชญา',
         amount: 0,
         description: 'คำแนะนำแบบแมว ๆ ที่จะทำให้ชีวิตคุณง่ายและเบาสบายขึ้น',
-        image: '003.jpg',
+        image: 'folder/003.jpg',
         borrowData: 1
     },
     {
@@ -69,7 +69,7 @@ export const bookList = [
         type: 'ภาษาศาสตร์',
         amount: 0,
         description: 'เมื่อคำพูดของคุณ สามารถควบคุมจิตใจคนได้',
-        image: '001.jpg',
+        image: 'folder/001.jpg',
         borrowData: 1
     },
     {
@@ -79,7 +79,7 @@ export const bookList = [
         type: 'วิทยาศาสตร์',
         amount: 0,
         description: 'เมื่อคำพูดของคุณ สามารถควบคุมจิตใจคนได้',
-        image: '001.jpg',
+        image: 'folder/001.jpg',
         borrowData: 24
     },
     {
@@ -89,7 +89,7 @@ export const bookList = [
         type: 'ปรัชญา',
         amount: 0,
         description: 'เมื่อคำพูดของคุณ สามารถควบคุมจิตใจคนได้',
-        image: '001.jpg',
+        image: 'folder/001.jpg',
         borrowData: 13
     },
     {
@@ -99,7 +99,7 @@ export const bookList = [
         type: 'ปรัชญา',
         amount: 0,
         description: 'เมื่อคำพูดของคุณ สามารถควบคุมจิตใจคนได้',
-        image: '001.jpg',
+        image: 'folder/001.jpg',
         borrowData: 16
     },
     {
@@ -109,7 +109,7 @@ export const bookList = [
         type: 'ปรัชญา',
         amount: 0,
         description: 'เมื่อคำพูดของคุณ สามารถควบคุมจิตใจคนได้',
-        image: '001.jpg',
+        image: 'folder/001.jpg',
         borrowData: 2
     },
     {
@@ -119,7 +119,7 @@ export const bookList = [
         type: 'ปรัชญา',
         amount: 0,
         description: 'เมื่อคำพูดของคุณ สามารถควบคุมจิตใจคนได้',
-        image: '001.jpg',
+        image: 'folder/001.jpg',
         borrowData: 7
     },
     {
@@ -129,7 +129,7 @@ export const bookList = [
         type: 'ปรัชญา',
         amount: 0,
         description: 'เมื่อคำพูดของคุณ สามารถควบคุมจิตใจคนได้',
-        image: '001.jpg',
+        image: 'folder/001.jpg',
         borrowData: 2
     },
     {
@@ -139,7 +139,7 @@ export const bookList = [
         type: 'ปรัชญา',
         amount: 0,
         description: 'เมื่อคำพูดของคุณ สามารถควบคุมจิตใจคนได้',
-        image: '001.jpg',
+        image: 'folder/001.jpg',
         borrowData: 8
     },
 ]

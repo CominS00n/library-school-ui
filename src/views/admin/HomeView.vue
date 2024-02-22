@@ -202,7 +202,7 @@ const options = ref({
     }
   ]
 })
-const series = ref([44, 55, 41, 17, 15])
+// const series = ref([44, 55, 41, 17, 15])
 
 const offset = ref([-20, 12])
 
