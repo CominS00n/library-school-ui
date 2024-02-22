@@ -4,15 +4,15 @@
       <div class="">
         <img :src="book.imageURL" alt="" class="object-contain h-64 w-64" />
       </div>
-      <h1 class="text-center font-semibold h-12">{{ book.name }}</h1>
+      <h1 class="text-center font-semibold h-12">{{ book.nameBook }}</h1>
       <div class="detail">
         <p>{{ book.school }}</p>
-        <p>ประเภท: {{ book.type }}</p>
-        <p>จำนวน: {{ book.amount }}</p>
+        <p>ประเภท: {{ book.typeBook }}</p>
+        <p>จำนวน: {{ book.amountBook }}</p>
         <!-- {{ book.borrowData }} -->
       </div>
       <div class="acton flex mt-3 justify-between">
-        <p-button :click="() => detailClick(book.id)" text="รายละเอียด"></p-button>
+        <p-button :click="() => detailClick(book.id, book.imageURL)" text="รายละเอียด"></p-button>
         <router-link :to="`/borrow-book/${book.id}`">
           <p-button text="ยืม" type="solid"></p-button>
         </router-link>
@@ -28,7 +28,7 @@
     :bordered="false"
     size="huge"
   >
-    <sct-modal :book-i-d="modalBookId" />
+    <sct-modal :book-i-d="modalBookId" :book-image="imageURL" />
   </n-modal>
 </template>
 
@@ -55,9 +55,11 @@ const props = defineProps({
 
 const isOpenModal = ref(false)
 const modalBookId = ref(null)
+const imageURL = ref('')
 
-function detailClick(bookId) {
+function detailClick(bookId,img) {
   isOpenModal.value = true
   modalBookId.value = bookId
+  imageURL.value = img
 }
 </script>

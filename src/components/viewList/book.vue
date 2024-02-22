@@ -6,14 +6,14 @@
       </div>
       <div class="col-span-11 grid grid-cols-6">
         <div class="flex flex-col justify-center">
-          <h3 class="font-bold">{{ book.name }}</h3>
+          <h3 class="font-bold">{{ book.nameBook }}</h3>
           <p>{{ book.school }}</p>
         </div>
-        <div>
+        <div class="p-3">
           <p class="font-semibold">ประเภท</p>
-          <p>{{ book.type }}</p>
+          <p>{{ book.typeBook }}</p>
         </div>
-        <div class="col-span-3">
+        <div class="col-span-3 p-3">
           <p class="font-semibold">Description</p>
           <p>
             {{ book.description }}

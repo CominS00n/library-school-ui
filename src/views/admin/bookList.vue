@@ -48,10 +48,10 @@
         </ul>
       </div>
       <div v-show="dataList === 'grid'">
-        <grid :bookData="listBook" :search-filter="searchInput" :type-filter="typeFilter" />
-        {{ listTest }}
+        <grid :bookData="bookDetails" :search-filter="searchInput" :type-filter="typeFilter" />
+        <!-- {{ bookDetails }} -->
       </div>
-      <div v-show="dataList === 'list'">
+      <div v-show="dataList === 'list' && Array.isArray(bookDetails)">
         <list :bookData="listBook" :search-filter="searchInput" :type-filter="typeFilter" />
       </div>
     </div>
@@ -60,10 +60,11 @@
 
 <script setup>
 import { onMounted, ref } from 'vue'
-import { bookTypes } from '@/constant/mockData'
-import { bookList } from '@/constant/mockData'
+import { bookList, bookTypes } from '@/constant/mockData'
 import { getImageURL } from '@/stores/getImageURL'
 import { TransitionRoot } from '@headlessui/vue'
+
+import useBooks from '@/componsable/book_api'
 
 import textInput from '@/components/textInput/index.vue'
 import Icon from '@/components/icon/index.vue'
@@ -76,10 +77,12 @@ const typeFilter = ref('')
 const searchInput = ref('')
 const listBook = ref([])
 
-onMounted(async () => {
-  // const updatedBookList = []
+const { bookDetails, getBookDetails } = useBooks()
 
-  for (const book of bookList) {
+
+onMounted(async () => {
+  await getBookDetails()
+  for (const book of bookDetails.value) {
     book.imageURL = await someOtherFunction(book.image)
     listBook.value.push(book)
   }

@@ -30,8 +30,8 @@ export default function useBooks() {
         url: 'bookList',
         data: data
       })
-      location.reload()
-      toast.success('บันทึกรายการหนังสือ', { timeout: 2000 })
+      // location.reload()
+      // toast.success('บันทึกรายการหนังสือ', { timeout: 2000 })
     } catch (error) {
       console.error('Error adding Book:', error)
       if (error.response && error.response.status === 422) {

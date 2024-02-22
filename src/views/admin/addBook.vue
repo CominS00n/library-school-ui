@@ -26,7 +26,7 @@
           </div>
         </div>
         <div class="w-full p-3 space-y-3">
-          <p-input v-model="data.name" label="ชื่อหนังสือ" placeholder="กรอกชื่อหนังสือ" />
+          <p-input v-model="data.nameBook" label="ชื่อหนังสือ" placeholder="กรอกชื่อหนังสือ" />
           <p-input v-model="data.school" label="โรงเรียน" placeholder="โรงเรียน" />
           <p-select
             @select="handleSelectBook"
@@ -34,7 +34,7 @@
             placeholder="เลือกประเภท"
             label="ประเภท"
           />
-          <p-input v-model="data.amount" label="จำนวน" placeholder="จำนวน" />
+          <p-input v-model="data.amountBook" label="จำนวน" placeholder="จำนวน" />
           <p-input v-model="data.description" label="รายละเอียด" placeholder="รายละเอียด" />
         </div>
       </div>
@@ -42,7 +42,7 @@
         <p-button :click="goBack" text="ยกเลิก" type="outline" main-class="w-32" />
         <p-button :click="submit" text="ตกลง" type="solid" main-class="w-80" />
       </div>
-      {{ data }}
+      <!-- {{ data }} -->
     </div>
   </TransitionRoot>
 </template>
@@ -73,10 +73,10 @@ const file = ref()
 const typeBookSelect = bookTypes.slice(1).sort()
 
 const data = reactive({
-  name: '',
+  nameBook: '',
   school: 'โรงเรียนเทศบาลชนะชัยศรี',
-  type: '',
-  amount: '',
+  typeBook: '',
+  amountBook: '',
   description: '',
   image: '',
   borrowData: 0
@@ -91,22 +91,27 @@ const handleImageUpload = (event) => {
 }
 
 function handleSelectBook(value) {
-  data.type = value
+  data.typeBook = value
 }
 
-
 function submit() {
-  if (!data.name || !data.type || !data.amount) {
+  if (!data.nameBook || !data.typeBook || !data.amountBook) {
     toast.error('กรุณากรอกข้อมูลให้ครบถ้วน', { timeout: 2000 })
   } else {
     uploadImage(file.value).then((uploadedPath) => {
       console.log(uploadedPath)
       data.image = uploadedPath
-      // addBook(data)
-      toast.success('บันทึกข้อมูลสำเร็จ', {timeout:2000})
+      addBook(data)
+      toast.success('บันทึกข้อมูลสำเร็จ', { timeout: 2000 })
+      data.image = ''
+      imageUrl.value = ''
+      data.nameBook = ''
+      data.school = 'โรงเรียนเทศบาลชนะชัยศรี'
+      data.typeBook = ''
+      data.amountBook = ''
+      data.description = ''
     })
   }
-
 }
 
 function goBack() {
@@ -114,8 +119,8 @@ function goBack() {
   imageUrl.value = ''
   data.name = ''
   data.school = 'โรงเรียนเทศบาลชนะชัยศรี'
-  data.type = ''
-  data.amount = ''
+  data.typeBook = ''
+  data.amountBook = ''
   data.description = ''
   router.push('/admin')
 }
