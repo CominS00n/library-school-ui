@@ -31,21 +31,50 @@
               <td>{{ borrow.fname }} {{ borrow.lname }}</td>
               <td>{{ borrow.borrow_date }}</td>
               <td>{{ borrow.return_date }}</td>
-              <td><p-button type="outline" /></td>
+              <td>{{ borrow.status }}</td>
+              <td><p-button :click="isOpenBorrowBook" type="outline" text="คืน" /></td>
             </tr>
           </tbody>
         </table>
       </div>
     </div>
   </TransitionRoot>
+
+  <n-modal
+    v-model:show="openBorrowBook"
+    class="custom-card w-[560px]"
+    preset="card"
+    title="ชื่อหนังสือ"
+    :bordered="false"
+    size="huge"
+  >
+    <div class="space-y-4">
+      <p-input label="รหัสนักเรียน" />
+      <p-input label="ชื่อ" />
+      <p-input label="นามสกุล" />
+      <p-input label="เบอร์โทร" />
+      <p-input label="วันที่ยืม" disabled />
+      <p-input label="วันที่คืน" type="date" />
+    </div>
+    <template #footer>
+      <div class="flex gap-x-4">
+        <p-button :click="isCloseBorrowBook" text="Cancel" />
+        <p-button :click="returnBook" text="Submit" type="solid" main-class="w-full" />
+      </div>
+    </template>
+  </n-modal>
 </template>
 
 <script setup>
 import { ref } from 'vue'
 import { borrows, bookList } from '@/constant/mockData'
 import { TransitionRoot } from '@headlessui/vue'
+import { useToast } from 'vue-toastification'
 
 import PButton from '@/components/button/index.vue'
+import PInput from '@/components/textInput/index.vue'
+
+const toast = useToast()
 
 const headers = ref([
   'ID',
@@ -54,8 +83,25 @@ const headers = ref([
   'Borrow Name',
   'Date Borrow',
   'Date Return',
+  'Status',
   'Action'
 ])
+
+const openBorrowBook = ref(false)
+
+function isOpenBorrowBook() {
+  openBorrowBook.value = true
+}
+
+function isCloseBorrowBook() {
+  openBorrowBook.value = !openBorrowBook.value
+}
+
+function returnBook() {
+  toast.success('ทำรายสำเร็จ', {timeout: 2000})
+  isCloseBorrowBook()
+
+}
 
 const getBookInfo = (bookId) => {
   return bookList.find((book) => book.id === bookId) || {}

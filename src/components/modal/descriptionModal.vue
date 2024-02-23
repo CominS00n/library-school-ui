@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col gap-y-3">
-    <img :src="props.bookImage" alt="" class="object-contain h-64" />
+    <img :src="bookDetail.image" alt="" class="object-contain h-64" />
     <div class="space-y-1 h-64">
       <p><span class="font-semibold">ชื่อหนังสือ:</span> {{ bookDetail.nameBook }}</p>
       <p><span class="font-semibold">โรงเรียน:</span> {{ bookDetail.school }}</p>

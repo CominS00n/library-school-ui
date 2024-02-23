@@ -1,9 +1,16 @@
 <template>
+  <div v-if="props.bookData.length === 0" class="flex justify-center items-center h-80">
+    <n-empty description="You can't find anything">
+      <template #extra>
+        <n-button size="small"> Find Something New </n-button>
+      </template>
+    </n-empty>
+  </div>
   <div class="grid gap-y-2">
     <div class="border p-4 grid grid-cols-12 items-center gap-x-5" v-for="book in props.bookData">
       <div class="">
-        <img :src="book.imageURL" alt="image" class="object-contain h-32 w-24" />
-      </div>
+        <img :src="book.image" alt="image" class="object-contain h-32 w-24" />
+      </div> 
       <div class="col-span-11 grid grid-cols-6">
         <div class="flex flex-col justify-center">
           <h3 class="font-bold">{{ book.nameBook }}</h3>

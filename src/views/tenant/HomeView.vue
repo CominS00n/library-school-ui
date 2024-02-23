@@ -56,13 +56,13 @@
             <n-badge v-for="(book, i) in topBooks" value="hot" :offset="offset">
               <n-card :key="i" class="h-[460px]">
                 <div class="">
-                  <img :src="`/image/${book.image}`" alt="" class="object-contain h-64 w-64" />
+                  <img :src="book.image" alt="" class="object-contain h-64 w-64" />
                 </div>
-                <h1 class="text-center font-semibold h-12">{{ book.name }}</h1>
+                <h1 class="text-center font-semibold h-12">{{ book.nameBook }}</h1>
                 <div class="detail text-start">
                   <p>{{ book.school }}</p>
-                  <p>ประเภท: {{ book.type }}</p>
-                  <p>จำนวน: {{ book.amount }}</p>
+                  <p>ประเภท: {{ book.typeBook }}</p>
+                  <p>จำนวน: {{ book.amountBook }}</p>
                 </div>
                 <div class="acton flex mt-3 justify-between">
                   <p-button :click="() => detailClick(book.id)" text="รายละเอียด"></p-button>
@@ -85,21 +85,29 @@
       :bordered="false"
       size="huge"
     >
-    <sct-modal :book-i-d="modalBookId" />
+      <sct-modal :book-i-d="modalBookId" />
     </n-modal>
   </TransitionRoot>
 </template>
 
 <script setup>
-import { ref, watchEffect } from 'vue'
+import { onMounted, ref, watchEffect } from 'vue'
 import { bookTypes, bookList } from '@/constant/mockData'
 import { TransitionRoot } from '@headlessui/vue'
+
+import useBooks from '@/componsable/book_api'
 
 import PButton from '@/components/button/index.vue'
 import icon from '@/components/icon/index.vue'
 import sctModal from '@/components/modal/descriptionModal.vue'
 
-const books = ref(bookList)
+const { bookDetails, getBookDetails } = useBooks()
+
+onMounted(() => {
+  getBookDetails()
+})
+
+const books = ref(bookDetails)
 const topBooks = ref([])
 
 const isOpenModal = ref(false)
@@ -115,7 +123,6 @@ function detailClick(bookId) {
   isOpenModal.value = true
   modalBookId.value = bookId
 }
-
 </script>
 
 <style scoped>

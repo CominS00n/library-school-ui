@@ -166,5 +166,6 @@ export const borrows = [
         lname: 'last name',
         borrow_date: '10/2/2567',
         return_date: '16/2/2567',
+        status: 'unreturned'
     }
 ]

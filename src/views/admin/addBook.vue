@@ -98,9 +98,9 @@ function submit() {
   if (!data.nameBook || !data.typeBook || !data.amountBook) {
     toast.error('กรุณากรอกข้อมูลให้ครบถ้วน', { timeout: 2000 })
   } else {
-    uploadImage(file.value).then((uploadedPath) => {
-      console.log(uploadedPath)
-      data.image = uploadedPath
+    uploadImage(file.value).then((imageURL) => {
+      console.log(imageURL)
+      data.image = imageURL
       addBook(data)
       toast.success('บันทึกข้อมูลสำเร็จ', { timeout: 2000 })
       data.image = ''

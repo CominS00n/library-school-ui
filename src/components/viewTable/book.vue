@@ -1,8 +1,15 @@
 <template>
+  <div v-if="props.bookData.length === 0" class="flex justify-center items-center h-80">
+    <n-empty description="You can't find anything">
+      <template #extra>
+        <n-button size="small"> Find Something New </n-button>
+      </template>
+    </n-empty>
+  </div>
   <div class="grid grid-cols-5 gap-y-5 gap-x-2">
     <n-card data-aos="fade-left" v-for="book in props.bookData" class="h-[460px]" :key="book.id">
       <div class="">
-        <img :src="book.imageURL" alt="" class="object-contain h-64 w-64" />
+        <img :src="book.image" alt="" class="object-contain h-64 w-64" />
       </div>
       <h1 class="text-center font-semibold h-12">{{ book.nameBook }}</h1>
       <div class="detail">
@@ -57,7 +64,7 @@ const isOpenModal = ref(false)
 const modalBookId = ref(null)
 const imageURL = ref('')
 
-function detailClick(bookId,img) {
+function detailClick(bookId, img) {
   isOpenModal.value = true
   modalBookId.value = bookId
   imageURL.value = img

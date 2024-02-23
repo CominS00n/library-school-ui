@@ -52,7 +52,7 @@
         <!-- {{ bookDetails }} -->
       </div>
       <div v-show="dataList === 'list' && Array.isArray(bookDetails)">
-        <list :bookData="listBook" :search-filter="searchInput" :type-filter="typeFilter" />
+        <list :bookData="bookDetails" :search-filter="searchInput" :type-filter="typeFilter" />
       </div>
     </div>
   </TransitionRoot>
@@ -61,7 +61,6 @@
 <script setup>
 import { onMounted, ref } from 'vue'
 import { bookList, bookTypes } from '@/constant/mockData'
-import { getImageURL } from '@/stores/getImageURL'
 import { TransitionRoot } from '@headlessui/vue'
 
 import useBooks from '@/componsable/book_api'
@@ -75,24 +74,14 @@ const dataList = ref('grid')
 const numType = ref(0)
 const typeFilter = ref('')
 const searchInput = ref('')
-const listBook = ref([])
+// const listBook = ref([])
 
 const { bookDetails, getBookDetails } = useBooks()
 
 
-onMounted(async () => {
-  await getBookDetails()
-  for (const book of bookDetails.value) {
-    book.imageURL = await someOtherFunction(book.image)
-    listBook.value.push(book)
-  }
+onMounted(() => {
+getBookDetails()
 })
-
-async function someOtherFunction(url) {
-  const downloadedURL = await getImageURL(url)
-  console.log(downloadedURL)
-  return downloadedURL
-}
 
 function isSelectType(bookType, i) {
   numType.value = i

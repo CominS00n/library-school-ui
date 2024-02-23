@@ -48,24 +48,32 @@
         </ul>
       </div>
       <div v-show="dataList === 'grid'">
-        <grid :search-filter="searchInput" :type-filter="typeFilter" />
+        <grid :bookData="bookDetails" :search-filter="searchInput" :type-filter="typeFilter" />
       </div>
       <div v-show="dataList === 'list'">
-        <list :search-filter="searchInput" :type-filter="typeFilter" />
+        <list :bookData="bookDetails" :search-filter="searchInput" :type-filter="typeFilter" />
       </div>
     </div>
   </TransitionRoot>
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import { bookTypes } from '@/constant/mockData'
 import { TransitionRoot } from '@headlessui/vue'
+
+import useBooks from '@/componsable/book_api'
 
 import textInput from '@/components/textInput/index.vue'
 import Icon from '@/components/icon/index.vue'
 import list from '@/components/viewList/book.vue'
 import grid from '@/components/viewTable/book.vue'
+
+const { bookDetails, getBookDetails } = useBooks()
+
+onMounted(() => {
+getBookDetails()
+})
 
 const dataList = ref('grid')
 const numType = ref(0)
