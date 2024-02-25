@@ -9,9 +9,9 @@
     leave-from="opacity-100 translate-y-0 sm:scale-100"
     leave-to="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
   >
-    <div class="flex gap-x-6 cursor-default p-6">
+    <div class="lg:flex lg:gap-x-6 lg:space-y-0 space-y-3 cursor-default p-6">
       <div class="border rounded-2xl shadow-md p-5 space-y-2">
-        <p class="text-xl font-semibold">จำนวนหนังสือแยกประเภท</p>
+        <p class="text-md lg:text-xl font-semibold">จำนวนหนังสือแยกประเภท</p>
         <apexchart width="520" type="pie" :options="options" :series="dataTest"></apexchart>
       </div>
       <div class="grid w-full gap-y-3">
@@ -19,77 +19,76 @@
           <div
             class="relative border w-full rounded-2xl shadow-md p-5 flex justify-center items-center text-4xl"
           >
-            <p class="text-xl font-semibold absolute top-2 left-7">ทั้งหมด</p>
-            <n-number-animation
-              ref="numberAnimationInstRef"
-              show-separator
-              :from="0"
-              :to="totalAmountBook"
-              :active="true"
-            />
-            <p class="text-[20px] absolute bottom-2 right-7">เล่ม</p>
+            <p class="text-sm lg:text-xl font-semibold absolute top-2 left-7">ทั้งหมด</p>
+            <div class="text-sm lg:text-3xl">
+              <n-number-animation
+                ref="numberAnimationInstRef"
+                show-separator
+                :from="0"
+                :to="totalAmountBook"
+                :active="true"
+              />
+            </div>
+            <p class="text-xs lg:text-[20px] absolute bottom-2 right-7">เล่ม</p>
           </div>
           <div
             class="relative border w-full rounded-2xl shadow-md p-5 flex justify-center items-center text-4xl"
           >
-            <p class="text-xl font-semibold absolute top-2 left-7">ประเภท</p>
+            <p class="text-sm lg:text-xl font-semibold absolute top-2 left-7">ประเภท</p>
             <div>
-              <p class="text-[20px]" >
+              <p class="text-sm lg:text-[20px]">
                 {{ bastBookType }}
               </p>
-              <!-- <n-number-animation
-                ref="numberAnimationInstRef"
-                show-separator
-                :from="0"
-                :to="totalBorrow"
-                :active="true"
-              /> -->
             </div>
-            <p class="text-[20px] absolute bottom-2 right-7">ถูกยืมมากที่สุด</p>
+            <p class="text-[0] lg:text-[20px] absolute bottom-2 right-7">ถูกยืมมากที่สุด</p>
           </div>
         </div>
         <div class="flex gap-x-6">
           <div
             class="relative border w-full rounded-2xl shadow-md p-5 flex justify-center items-center text-4xl"
           >
-            <p class="text-xl font-semibold absolute top-2 left-7">ถูกยืม</p>
+            <p class="text-sm lg:text-xl font-semibold absolute top-2 left-7">ถูกยืม</p>
             <div>
-              <n-number-animation
-                ref="numberAnimationInstRef"
-                show-separator
-                :from="0"
-                :to="totalBorrow"
-                :active="true"
-              />
+              <div class="text-sm lg:text-3xl">
+                <n-number-animation
+                  ref="numberAnimationInstRef"
+                  show-separator
+                  :from="0"
+                  :to="totalBorrow"
+                  :active="true"
+                />
+              </div>
             </div>
-            <p class="text-[20px] absolute bottom-2 right-7">ครั้ง</p>
+            <p class="text-xs lg:text-[20px] absolute bottom-2 right-7">ครั้ง</p>
           </div>
           <div
             class="relative border w-full rounded-2xl shadow-md p-5 flex justify-center items-center text-4xl"
           >
-            <p class="text-xl font-semibold absolute top-2 left-7">คืนแล้ว</p>
-            <n-number-animation
-              ref="numberAnimationInstRef"
-              show-separator
-              :from="0"
-              :to="100"
-              :active="true"
-            />
-            <p class="text-[20px] absolute bottom-2 right-7">ครั้ง</p>
+            <p class="text-sm lg:text-xl font-semibold absolute top-2 left-7">คืนแล้ว</p>
+            <div class="text-sm lg:text-3xl">
+              <n-number-animation
+                ref="numberAnimationInstRef"
+                show-separator
+                :from="0"
+                :to="100"
+                :active="true"
+              />
+            </div>
+            <p class="text-xs lg:text-[20px] absolute bottom-2 right-7">ครั้ง</p>
           </div>
         </div>
       </div>
     </div>
 
     <div class="space-y-24 my-2 text-center container mx-auto">
-      <div>
+      <!-- <div>
         <n-divider title-placement="center"> หวมดหมู่ </n-divider>
         <div class="my-6 flex justify-around">
           <span v-for="bookType in bookTypes">
             <p-button type="outline" :text="bookType" />
           </span>
         </div>
-      </div>
+      </div> -->
       <div class="my-2 space-y-6">
         <n-divider title-placement="center"> รายการแนะนำ </n-divider>
         <n-card class="rounded-xl">
@@ -181,7 +180,6 @@ watchEffect(() => {
     }
   }, uniqueTypeBooks[0]) // ให้เป็น typeBook แรกไปก่อน
   bastBookType.value = mostCommonTypeBook
-
 
   // สร้างอาร์เรย์ของยืม borrowData ของแต่ละ type
   const totalBorrowDataByType = bookDetails.value.reduce((summary, book) => {

@@ -14,18 +14,18 @@
       <n-tabs type="segment" animated>
         <n-tab-pane name="admin" tab="Admin">
           <n-divider title-placement="left">Librarian</n-divider>
-          <div class="grid grid-cols-2 gap-6 p-2">
+          <div class="lg:grid lg:grid-cols-2 gap-6 p-2 lg:space-y-0 space-y-3">
             <p-input v-model="adminData.firstName" label="First Name" />
             <p-input v-model="adminData.lastName" label="Last Name" />
-            <p-input v-model="adminData.address" label="Address" class="col-span-2" />
+            <p-input v-model="adminData.address" label="Address" class="lg:col-span-2" />
             <p-input v-model="adminData.Email" label="Email" />
             <p-input v-model="adminData.tel" label="Phone" />
             <p-input v-model="adminData.jobPostion" label="Job position" />
             <p-input v-model="adminData.school" label="School" />
             <p-input v-model="adminData.username" label="Username" />
             <p-input v-model="adminData.password" label="Password" type="password" password />
-            <div class="col-span-2 flex gap-x-6 mt-6">
-              <p-button :click="cancelButton" type="outline" text="Cancel" mainClass="w-64" />
+            <div class="lg:col-span-2 lg:flex gap-x-6 mt-6 space-y-3 lg:space-y-0">
+              <p-button :click="cancelButton" type="outline" text="Cancel" mainClass="lg:w-64 w-full" />
               <p-button :click="adminRegister" type="solid" text="Submit" mainClass="w-full" />
             </div>
           </div>
@@ -34,7 +34,7 @@
         <!-- Register Student -->
         <n-tab-pane name="student" tab="Student">
           <n-divider title-placement="left">Student</n-divider>
-          <div class="grid grid-cols-2 gap-6">
+          <div class="lg:grid lg:grid-cols-2 gap-6 space-y-3 lg:space-y-0">
             <p-input v-model="studentData.studentNo" label="Student No." class="col-span-2" />
             <p-input v-model="studentData.firstName" label="First Name" />
             <p-input v-model="studentData.lastName" label="Last Name" />
@@ -44,12 +44,12 @@
             <p-input v-model="studentData.password" label="Password" type="password" password />
           </div>
           <n-divider title-placement="left">Parent</n-divider>
-          <div class="grid grid-cols-2 gap-6 p-2">
+          <div class="lg:grid lg:grid-cols-2 gap-6 p-2">
             <p-input v-model="studentData.parentsName" label="First Name" />
             <p-input v-model="studentData.parentLastname" label="Last Name" />
             <p-input v-model="studentData.parentTel" label="Phone" class="col-span-2" />
-            <div class="col-span-2 flex gap-x-6 mt-6">
-              <p-button :click="cancelButton" type="outline" text="Cancel" mainClass="w-64" />
+            <div class="lg:col-span-2 lg:flex gap-x-6 mt-6 space-y-3 lg:space-y-0">
+              <p-button :click="cancelButton" type="outline" text="Cancel" mainClass="lg:w-64 w-full" />
               <p-button :click="studentRegister" type="solid" text="Submit" mainClass="w-full" />
             </div>
             <!-- {{ studentData }} -->
