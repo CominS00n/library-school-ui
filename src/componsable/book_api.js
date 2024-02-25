@@ -33,12 +33,22 @@ export default function useBooks() {
       }
     }
   }
+
+  const editBook = async (id) => {
+    try {
+      await axios.put(`bookList/${id}`, bookDetail.value)
+      location.reload()
+    } catch (err) {
+      errors.value = err.response.data.errors
+    }
+  }
   return {
     bookDetails,
     bookDetail,
     errors,
     getBookDetails,
     getBookDetail,
-    addBook
+    addBook,
+    editBook
   }
 }

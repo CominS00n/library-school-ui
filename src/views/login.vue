@@ -25,7 +25,7 @@
             <router-link to="/"
               ><p-button text="Cancel" type="outline" main-class="w-32"
             /></router-link>
-            <p-button :click="loginStudent" text="Submit" type="solid" main-class="w-full" />
+            <p-button :click="() => studentLogin(suser, spass)" text="Submit" type="solid" main-class="w-full" />
           </div>
         </div>
       </div>
@@ -65,8 +65,12 @@ import { useToast } from 'vue-toastification'
 import { student, Admin } from '@/constant/mockData'
 import { saveUserInfo } from '@/stores/accountLogin'
 
+import useStudent from '@/componsable/student'
+
 import PInput from '@/components/textInput/index.vue'
 import PButton from '@/components/button/index.vue'
+
+const { studentLogin } = useStudent()
 
 const suser = ref('132234001')
 const spass = ref('password')
@@ -83,27 +87,27 @@ function closeModal() {
   isOpenModal.value = false
 }
 
-function loginStudent() {
-  const foundStudent = student.find(
-    (item) => item.username === suser.value && item.pass === spass.value
-  )
-  if (foundStudent) {
-    saveUserInfo({
-      username: foundStudent.username,
-      firstName: foundStudent.fname,
-      lastName: foundStudent.lname,
-      studentNo: foundStudent.studentNo,
-      parentFirstName: foundStudent.pfname,
-      parentLastName: foundStudent.plname,
-      parentPhone: foundStudent.pphone
-    })
-    console.log(`${foundStudent.fname}  ${foundStudent.lname} เข้าสู่ระบบ`)
-    router.push('/')
-    toast.success('เข้าสู่ระบบสำเร็จ', { timeout: 2000 })
-  } else {
-    console.log('ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง')
-  }
-}
+// function loginStudent() {
+//   const foundStudent = student.find(
+//     (item) => item.username === suser.value && item.pass === spass.value
+//   )
+//   if (foundStudent) {
+//     saveUserInfo({
+//       username: foundStudent.username,
+//       firstName: foundStudent.fname,
+//       lastName: foundStudent.lname,
+//       studentNo: foundStudent.studentNo,
+//       parentFirstName: foundStudent.pfname,
+//       parentLastName: foundStudent.plname,
+//       parentPhone: foundStudent.pphone
+//     })
+//     console.log(`${foundStudent.fname}  ${foundStudent.lname} เข้าสู่ระบบ`)
+//     router.push('/')
+//     toast.success('เข้าสู่ระบบสำเร็จ', { timeout: 2000 })
+//   } else {
+//     console.log('ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง')
+//   }
+// }
 
 function loginAdmin() {
   const foundAdmin = Admin.find(
