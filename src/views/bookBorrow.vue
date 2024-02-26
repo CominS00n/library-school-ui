@@ -29,7 +29,7 @@
           <p-input label="ชื่อ" />
           <p-input label="นามสกุล" />
           <p-input label="เบอร์โทร" class="col-span-2" />
-          <p-input label="วันที่ยืม" type="date" />
+          <p-input v-model="borrowData.borrowingDate" label="วันที่ยืม" type="date" />
           <p-input label="วันที่คืน" type="date" />
         </div>
         <div class="col-span-2 flex justify-end gap-x-3 mt-3">
@@ -39,11 +39,12 @@
             text="ยืม"
             :main-class="`w-72 ${bookDetail.amountBook === 0 ? 'cursor-no-drop bg-gray-300 border-gray-300 hover:bg-gray-300 hover:border-gray-300' : ''}`"
             :disabled="bookDetail.amountBook === 0"
+            :click="submit"
           />
         </div>
       </div>
     </div>
-    <!-- {{ typeSummaryArray }} -->
+    {{ borrowData }}
   </TransitionRoot>
 </template>
 
@@ -54,6 +55,7 @@ import { TransitionRoot } from '@headlessui/vue'
 // import { bookList } from '@/constant/mockData'
 
 import useBooks from '@/componsable/book_api'
+import useBorrowBook from '@/componsable/borrow'
 
 import PInput from '@/components/textInput/index.vue'
 import PButton from '@/components/button/index.vue'
@@ -63,6 +65,7 @@ const router = useRouter()
 const route = useRoute()
 
 const { bookDetail, getBookDetail } = useBooks()
+const { saveBorrowBook } = useBorrowBook()
 
 onMounted(() => {
   getBookDetail(id.value)
@@ -75,15 +78,20 @@ const id = ref(route.params.id)
 
 const borrowData = reactive({
   bookId: route.params.id,
-  studentNo: '',
-  firstName: '',
-  lastName: '',
-  tel: '',
+  studentNo: '1',
+  firstName: 'qdqdqdq',
+  lastName: 'fsqdqd',
+  tel: '23424',
   borrowingDate: new Date(),
   returnBook: new Date(),
-  amountBook: '',
-  status:'unreturned', //returned
+  amountBook: 1,
+  status: 'unreturned' //returned
 })
+
+function submit() {
+  saveBorrowBook(borrowData)
+
+}
 
 function goBack() {
   router.go(-1)

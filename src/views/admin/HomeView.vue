@@ -93,7 +93,7 @@
         <n-divider title-placement="center"> รายการแนะนำ </n-divider>
         <n-card class="rounded-xl">
           <div class="grid grid-cols-5 gap-y-5 gap-x-2">
-            <n-badge v-for="(book, i) in topBooks" value="hot" :offset="offset">
+            <n-badge v-for="(book, i) in topBooks" value="hot" :offset="offset" :key="book.id">
               <n-card :key="i" class="h-[460px]">
                 <div class="">
                   <img :src="book.image" alt="" class="object-contain h-64 w-64" />
@@ -132,7 +132,7 @@
 
 <script setup>
 import { onMounted, ref, watchEffect } from 'vue'
-import { bookTypes, bookList } from '@/constant/mockData'
+// import { bookTypes, bookList } from '@/constant/mockData'
 import { TransitionRoot } from '@headlessui/vue'
 
 import useBooks from '@/componsable/book_api'
@@ -203,6 +203,8 @@ watchEffect(() => {
   )
   const getDataBook = [...new Set(totalBorrowDataArray.map((book) => book.totalBorrowData))]
   dataTest.value = getDataBook
+  console.log('dataTest',dataTest)
+
 
   const totalBorrowDataSum = totalBorrowDataArray.reduce(
     (sum, book) => sum + book.totalBorrowData,

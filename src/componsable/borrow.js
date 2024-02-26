@@ -11,12 +11,12 @@ export default function useBorrowBook() {
 
   const getBorrowDetails = async () => {
     const response = await axios.get('lendBook')
-    borrowDetails.value = response
+    borrowDetails.value = response.data
   }
 
   const getBorrowDetail = async (id) => {
     const response = await axios.get(`lendBook/${id}`)
-    borrowDetail.value = response
+    borrowDetail.value = response.data
   }
 
   const editBorrowBook = async (id) => {
@@ -29,11 +29,14 @@ export default function useBorrowBook() {
   }
 
   const saveBorrowBook = async (data) => {
+    console.log(data)
     try {
       await axios({
         method: 'post',
         url: 'lendBook',
-        data: data
+        data: {
+          bookId: ''
+        }
       })
       location.reload()
     } catch (err) {
@@ -50,6 +53,7 @@ export default function useBorrowBook() {
     borrowDetails,
     borrowDetail,
     getBorrowDetail,
-    editBorrowBook
+    editBorrowBook,
+    saveBorrowBook
   }
 }

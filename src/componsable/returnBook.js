@@ -11,12 +11,12 @@ export default function useReturnBook() {
 
   const getReturnBookDetails = async () => {
     const response = await axios.get('returnBook')
-    returnBookDetails.value = response
+    returnBookDetails.value = response.data
   }
 
   const getReturnBookDetail = async (id) => {
     const response = await axios.get(`returnBook/${id}`)
-    returnBookDetail.value = response
+    returnBookDetail.value = response.data
   }
 
   const saveReturnBook = async (data) => {

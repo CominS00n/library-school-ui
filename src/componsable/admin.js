@@ -7,14 +7,13 @@ import { saveUserInfo } from '@/stores/accountLogin'
 
 axios.defaults.baseURL = 'http://127.0.0.1:8000/api/'
 
-const toast = useToast()
-const router = useRouter()
-
 export default function useAdmin() {
   const adminDetails = ref([])
   const adminDetail = ref([])
   const errors = ref([])
 
+  const toast = useToast()
+  const router = useRouter()
   const getAdminDetails = async () => {
     const response = await axios.get('registerTeacher')
     adminDetails.value = response.data
@@ -43,32 +42,25 @@ export default function useAdmin() {
 
   const adminLogin = async (username, password) => {
     await getAdminDetails().then(() => {
-      const checkUsername = adminDetails.value.find((user) => user.username === username)
-      const checkPassword = checkUsername.find(
+      const checkUsername = adminDetails.value.find(
         (user) => user.username === username && user.password === password
       )
-      console.log(checkUsername)
-      console.log(checkPassword)
 
-      if (!checkUsername && !checkPassword) {
-        toast.error('ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง', { timeout: 2000 })
-      } else if (checkUsername && checkPassword) {
+      if (checkUsername) {
         saveUserInfo({
-          id: checkPassword.id,
-          username: checkPassword.username,
-          firstName: checkPassword.firstName,
-          lastName: checkPassword.lastName,
-          email: checkPassword.email
+          id: checkUsername.id,
+          username: checkUsername.username,
+          firstName: checkUsername.firstName,
+          lastName: checkUsername.lastName
         })
-        console.log(`${checkPassword.firstName} ${checkPassword.lastName} เข้าสู่ระบบ`)
-        router.push('/admin')
+        console.log(`${checkUsername.firstName} ${checkUsername}`)
         toast.success('เข้าสู่ระบบสำเร็จ', { timeout: 2000 })
+        router.push('/admin')
       } else {
-        toast.error('ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง', { timeout: 2000 })
+        toast.error('username หรือ password ไม่ถูกต้อง', { timeout: 2000 })
       }
     })
   }
-
   return {
     errors,
     addAdmin,
