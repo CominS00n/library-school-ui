@@ -22,7 +22,7 @@ export default function useBorrowBook() {
   const editBorrowBook = async (id) => {
     try {
       await axios.put(`lendBook/${id}`, borrowDetail.value)
-      location.reload()
+      console.log('Changing success')
     } catch (err) {
       errors.value = err.response.data.errors
     }
@@ -34,9 +34,7 @@ export default function useBorrowBook() {
       await axios({
         method: 'post',
         url: 'lendBook',
-        data: {
-          bookId: ''
-        }
+        data: data
       })
       location.reload()
     } catch (err) {

@@ -1,5 +1,4 @@
 <template>
-  >
   <TransitionRoot
     appear
     :show="true"
@@ -31,8 +30,8 @@
               </td>
               <td>{{ borrow.borrowingDate }}</td>
               <td>{{ borrow.returnBook }}</td>
-              <td>{{ borrow.status }}</td>
-              <td>
+              <!-- <td>{{ borrow.status }}</td> -->
+              <td v-if="borrow.status === 'unreturned'">
                 <p-button
                   :click="
                     () =>
@@ -68,14 +67,16 @@
       <p-input v-model="returnData.lastName" label="นามสกุล" />
       <p-input v-model="returnData.tel" label="เบอร์โทร" />
       <p-input v-model="borrowDetail.borrowingDate" label="วันที่ยืม" type="date" disabled />
-      <p-input v-model="returnBook.returnBook" label="วันที่คืน" type="date" />
+      <p-input v-model="returnData.returnBook" label="วันที่คืน" type="date" />
     </div>
-    {{ returnData }}
+    <!-- {{ returnData }} -->
     <template #footer>
       <div class="flex gap-x-4">
         <p-button :click="isCloseBorrowBook" text="Cancel" />
         <p-button
-          :click="() => returnBook(borrowDetail.borrowingDate)"
+          :click="
+            () => returnBook(borrowDetail.borrowingDate, returnData.returnBook, borrowDetail.id)
+          "
           text="Submit"
           type="solid"
           main-class="w-full"
@@ -90,6 +91,7 @@ import { onMounted, reactive, ref } from 'vue'
 // import { borrows, bookList } from '@/constant/mockData'
 import { TransitionRoot } from '@headlessui/vue'
 import { useToast } from 'vue-toastification'
+import { useRouter } from 'vue-router'
 import { differenceInDays } from 'date-fns'
 
 import useBorrowBook from '@/componsable/borrow'
@@ -100,8 +102,10 @@ import PButton from '@/components/button/index.vue'
 import PInput from '@/components/textInput/index.vue'
 
 const toast = useToast()
+const router = useRouter()
 
-const { getBorrowDetails, borrowDetails, getBorrowDetail, borrowDetail } = useBorrowBook()
+const { getBorrowDetails, borrowDetails, getBorrowDetail, borrowDetail, editBorrowBook } =
+  useBorrowBook()
 const { getStudentDetails, studentDetails } = useStudent()
 const { getBookDetails, bookDetails } = useBooks()
 
@@ -118,7 +122,7 @@ const headers = ref([
   'Borrow Name',
   'Date Borrow',
   'Date Return',
-  'Status',
+  // 'Status',
   'Action'
 ])
 
@@ -129,7 +133,7 @@ const returnData = reactive({
   firstName: '',
   lastName: '',
   tel: '',
-  returnBook: new Date(),
+  returnBook: '',
   amountBook: ''
 })
 
@@ -153,11 +157,10 @@ function isCloseBorrowBook() {
 
 // const isShowAlert = ref(false)
 
-async function returnBook(borrowingDate) {
-  console.log(borrowingDate)
-  console.log(returnData.returnBook)
+async function returnBook(borrowingDate, returnData, id) {
   let date1 = new Date(borrowingDate)
-  let dayDiff = differenceInDays(returnData.returnBook, date1)
+  let date2 = new Date(returnData)
+  let dayDiff = differenceInDays(date2, date1)
   const fine = ref(0)
 
   if (dayDiff > 3) {
@@ -167,10 +170,19 @@ async function returnBook(borrowingDate) {
       timeout: false,
       icon: false
     })
+  } else {
+    console.log(id)
+    await getBorrowDetail(id).then(() => {
+      borrowDetail.value.status = 'returned'
+      borrowDetail.value.returnBook = returnData
+      console.log(borrowDetail.value)
+      editBorrowBook(id).then(() => {
+        location.reload()
+      })
+      toast.success('ทำรายสำเร็จ', { timeout: 2000 })
+    })
+    // isCloseBorrowBook()
   }
-
-  toast.success('ทำรายสำเร็จ', { timeout: 2000 })
-  isCloseBorrowBook()
 }
 
 const getUserBorrow = (studentNo) => {

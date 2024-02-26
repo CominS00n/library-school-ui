@@ -82,8 +82,8 @@ const borrowData = reactive({
   firstName: 'qdqdqdq',
   lastName: 'fsqdqd',
   tel: '23424',
-  borrowingDate: new Date(),
-  returnBook: new Date(),
+  borrowingDate: '',
+  returnBook: '',
   amountBook: 1,
   status: 'unreturned' //returned
 })
