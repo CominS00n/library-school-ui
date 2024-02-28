@@ -22,15 +22,50 @@
           <img :src="bookDetail.image" alt="" class="object-contain h-96" />
           <p>{{ bookDetail.school }} / {{ bookDetail.typeBook }} / {{ bookDetail.amountBook }}</p>
         </div>
-        <div class="grid content-center gap-3">
+        <div class="grid content-start gap-3">
           <p class="col-span-2 font-semibold mb-3">ข้อมูลการยืม</p>
-          <p-input v-model="bookDetail.nameBook" class="col-span-2" label="" disabled />
-          <p-input label="รหัสนักเรียน" class="col-span-2" />
-          <p-input label="ชื่อ" />
-          <p-input label="นามสกุล" />
-          <p-input label="เบอร์โทร" class="col-span-2" />
+          <p-input v-model="bookDetail.nameBook" label="" disabled />
+          <p-input
+            v-model="borrowData.amountBook"
+            type="number"
+            label=""
+            placeholder="จำนวน(เล่ม)"
+          />
+          <p-input
+            v-model="insertStudentNo"
+            label="รหัสนักเรียน"
+            placeholder="เช่น 12312241"
+            class="col-span-2"
+          />
+          <p-input v-if="filteredStudent.length > 1" label="ชื่อ" placeholder="กรอกชื่อ" />
+          <p-input v-if="filteredStudent.length > 1" label="นามสกุล" placeholder="กรอกนามสกุล" />
+          <p-input
+            v-if="filteredStudent.length === 1"
+            v-model="filteredStudent[0].firstName"
+            label="ชื่อ"
+            placeholder="กรอกชื่อ"
+            disabled
+          />
+          <p-input
+            v-if="filteredStudent.length === 1"
+            v-model="filteredStudent[0].lastName"
+            label="นามสกุล"
+            placeholder="กรอกนามสกุล"
+            disabled
+          />
+          <p-input
+            v-if="filteredStudent.length > 1"
+            label="เบอร์โทร"
+            placeholder="กรอกเบอร์โทรผู้ปกครอง"
+          />
+          <p-input
+            v-if="filteredStudent.length === 1"
+            v-model="filteredStudent[0].parentTel"
+            label="เบอร์โทร"
+            placeholder="กรอกเบอร์โทรผู้ปกครอง"
+          />
           <p-input v-model="borrowData.borrowingDate" label="วันที่ยืม" type="date" />
-          <p-input label="วันที่คืน" type="date" />
+          <!-- <p-input label="วันที่คืน" type="date" /> -->
         </div>
         <div class="col-span-2 flex justify-end gap-x-3 mt-3">
           <p-button :click="goBack" type="outline" text="ยกเลิก" main-class="w-32" />
@@ -44,18 +79,18 @@
         </div>
       </div>
     </div>
-    {{ borrowData }}
   </TransitionRoot>
 </template>
 
 <script setup>
-import { onMounted, reactive, ref } from 'vue'
+import { computed, onMounted, reactive, ref, watch } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { TransitionRoot } from '@headlessui/vue'
-// import { bookList } from '@/constant/mockData'
+import { useToast } from 'vue-toastification'
 
 import useBooks from '@/componsable/book_api'
 import useBorrowBook from '@/componsable/borrow'
+import useStudent from '@/componsable/student'
 
 import PInput from '@/components/textInput/index.vue'
 import PButton from '@/components/button/index.vue'
@@ -63,35 +98,81 @@ import icon from '@/components/icon/index.vue'
 
 const router = useRouter()
 const route = useRoute()
+const toast = useToast()
 
-const { bookDetail, getBookDetail } = useBooks()
+const { bookDetail, getBookDetail, editBook } = useBooks()
+const { studentDetails, getStudentDetails } = useStudent()
 const { saveBorrowBook } = useBorrowBook()
 
 onMounted(() => {
+  getStudentDetails()
   getBookDetail(id.value)
 })
 
 const id = ref(route.params.id)
-// const book = ref(bookList.find((book) => book.id === id.value))
 
-// const name = book.value.name
+const insertStudentNo = ref('')
 
 const borrowData = reactive({
   bookId: route.params.id,
-  studentNo: '1',
-  firstName: 'qdqdqdq',
-  lastName: 'fsqdqd',
-  tel: '23424',
+  studentNo: '',
+  firstName: '',
+  lastName: '',
+  tel: '',
   borrowingDate: '',
   returnBook: '',
-  amountBook: 1,
+  amountBook: '',
   status: 'unreturned' //returned
 })
 
 function submit() {
-  saveBorrowBook(borrowData)
-
+  // console.log('Before Data: ' + bookDetail.value.amountBook)
+  if (
+    !borrowData.bookId ||
+    !borrowData.studentNo ||
+    !borrowData.firstName ||
+    !borrowData.lastName ||
+    !borrowData.tel ||
+    !borrowData.borrowingDate ||
+    !borrowData.amountBook
+  ) {
+    toast.error('กรุณากรอกข้อมูลให้ครบถ้วน', { timeout: 2000 })
+  } else {
+    if (borrowData.amountBook > bookDetail.value.amountBook) {
+      toast.error('จำนวนหนังสือมีไม่พอ', { timeout: 2000 })
+    } else {
+      bookDetail.value.amountBook -= borrowData.amountBook
+      saveBorrowBook(borrowData)
+      editBook(id.value)
+    }
+  }
 }
+
+const filteredStudent = computed(() => {
+  const lowerCaseSearchTerm = insertStudentNo.value.toLowerCase()
+  return studentDetails.value.filter((student) => {
+    return student.studentNo.toLowerCase().includes(lowerCaseSearchTerm)
+  })
+})
+
+function onStudentNoChange() {
+  const studentNo = insertStudentNo.value.toLowerCase()
+  const matchingStudents = studentDetails.value.filter((student) => {
+    return student.studentNo.toLowerCase() === studentNo
+  })
+
+  if (matchingStudents.length > 0) {
+    borrowData.studentNo = matchingStudents[0].id
+    borrowData.firstName = matchingStudents[0].firstName
+    borrowData.lastName = matchingStudents[0].lastName
+    borrowData.tel = matchingStudents[0].parentTel
+  } else {
+    borrowData.firstName = ''
+    borrowData.lastName = ''
+  }
+}
+
+watch(insertStudentNo, onStudentNoChange)
 
 function goBack() {
   router.go(-1)

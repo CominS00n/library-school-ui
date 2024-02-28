@@ -1,8 +1,8 @@
 <template>
   <div v-if="props.bookData.length === 0" class="flex justify-center items-center h-80">
-    <n-empty description="You can't find anything">
+    <n-empty description="ไม่พบข้อมูล">
       <template #extra>
-        <n-button size="small"> Find Something New </n-button>
+        <!-- <n-button size="small"> Find Something New </n-button> -->
       </template>
     </n-empty>
   </div>

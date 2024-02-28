@@ -36,31 +36,32 @@
             <icon icon="heroicons-outline:queue-list" />
           </div>
         </div>
-        <ul class="flex space-x-5">
+        <!-- <ul class="flex space-x-5">
           <il
             v-for="(bookType, i) in bookTypes"
+            :key="i"
             class="cursor-pointer hover:scale-110"
             :class="numType === i ? 'text-[#7743DB] font-semibold' : ''"
             @click="isSelectType(bookType, i)"
           >
             {{ bookType }}
           </il>
-        </ul>
+        </ul> -->
       </div>
       <div v-show="dataList === 'grid'">
-        <grid :bookData="bookDetails" :search-filter="searchInput" :type-filter="typeFilter" />
+        <grid :bookData="filteredBooks" :search-filter="searchInput" :type-filter="typeFilter" />
         <!-- {{ bookDetails }} -->
       </div>
       <div v-show="dataList === 'list' && Array.isArray(bookDetails)">
-        <list :bookData="bookDetails" :search-filter="searchInput" :type-filter="typeFilter" />
+        <list :bookData="filteredBooks" :search-filter="searchInput" :type-filter="typeFilter" />
       </div>
     </div>
   </TransitionRoot>
 </template>
 
 <script setup>
-import { onMounted, ref } from 'vue'
-import { bookList, bookTypes } from '@/constant/mockData'
+import { onMounted, ref, computed } from 'vue'
+// import { bookTypes } from '@/constant/mockData'
 import { TransitionRoot } from '@headlessui/vue'
 
 import useBooks from '@/componsable/book_api'
@@ -71,25 +72,34 @@ import list from '@/components/viewList/book.vue'
 import grid from '@/components/viewTable/book.vue'
 
 const dataList = ref('grid')
-const numType = ref(0)
+// const numType = ref(0)
 const typeFilter = ref('')
 const searchInput = ref('')
 // const listBook = ref([])
 
 const { bookDetails, getBookDetails } = useBooks()
 
-
 onMounted(() => {
-getBookDetails()
+  getBookDetails()
 })
 
-function isSelectType(bookType, i) {
-  numType.value = i
-  console.log(i)
-  if (i === 0) {
-    typeFilter.value = ''
-  } else {
-    typeFilter.value = bookType
-  }
-}
+// function isSelectType(bookType, i) {
+//   numType.value = i
+//   console.log(i)
+//   if (i === 0) {
+//     typeFilter.value = ''
+//   } else {
+//     typeFilter.value = bookType
+//   }
+// }
+
+const filteredBooks = computed(() => {
+  const lowerCaseSearchTerm = searchInput.value.toLowerCase()
+  return bookDetails.value.filter((book) => {
+    return (
+      book.nameBook.toLowerCase().includes(lowerCaseSearchTerm) ||
+      book.typeBook.toLowerCase().includes(lowerCaseSearchTerm)
+    )
+  })
+})
 </script>

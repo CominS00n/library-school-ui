@@ -36,16 +36,17 @@
             <icon icon="heroicons-outline:queue-list" />
           </div>
         </div>
-        <ul class="flex space-x-5">
+        <!-- <ul class="flex space-x-5">
           <il
             v-for="(bookType, i) in bookTypes"
+            :key="i"
             class="cursor-pointer hover:scale-110"
             :class="numType === i ? 'text-[#7743DB] font-semibold' : ''"
             @click="isSelectType(bookType, i)"
           >
             {{ bookType }}
           </il>
-        </ul>
+        </ul> -->
       </div>
       <div v-show="dataList === 'grid'">
         <grid :bookData="bookDetails" :search-filter="searchInput" :type-filter="typeFilter" />
@@ -59,7 +60,7 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
-import { bookTypes } from '@/constant/mockData'
+// import { bookTypes } from '@/constant/mockData'
 import { TransitionRoot } from '@headlessui/vue'
 
 import useBooks from '@/componsable/book_api'
@@ -76,17 +77,17 @@ getBookDetails()
 })
 
 const dataList = ref('grid')
-const numType = ref(0)
+// const numType = ref(0)
 const typeFilter = ref('')
 const searchInput = ref('')
 
-function isSelectType(bookType, i) {
-  numType.value = i
-  console.log(i)
-  if (i === 0) {
-    typeFilter.value = ''
-  } else {
-    typeFilter.value = bookType
-  }
-}
+// function isSelectType(bookType, i) {
+//   numType.value = i
+//   console.log(i)
+//   if (i === 0) {
+//     typeFilter.value = ''
+//   } else {
+//     typeFilter.value = bookType
+//   }
+// }
 </script>

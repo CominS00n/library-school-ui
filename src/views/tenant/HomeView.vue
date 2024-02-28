@@ -18,16 +18,14 @@
             <icon icon="heroicons-outline:book-open" class="text-7xl text-[#7743db]" />
           </n-space>
           <p class="text-base mt-5 font-light">
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Deleniti sint quod enim quasi
-            culpa. Ducimus quia repellendus pariatur tenetur optio perspiciatis reprehenderit fugit
-            ab nemo iste quaerat et eos officiis corrupti, alias illo magni culpa quo explicabo enim
-            perferendis dolorum delectus? Asperiores ullam dolorem corporis temporibus tempora
-            similique repellat laborum!
+            "ท่านกำลังมองหาหนังสือแบบไหน"
+            เว็บไซต์นี้เป็นเว็บไซต์ที่รวบรวมรายการหนังสือทั้งหมดภายในห้องสมุดของ
+            โรงเรียนเทศบาลชนะชัยศรี เอาไว้ให้ท่านได้เข้ามาเลือกยืมไปอ่านได้ด้วยตัวของท่านเอง
           </p>
 
           <div class="text-base mt-5 w-fit">
             <router-link to="book-list">
-              <p-button icon="heroicons-outline:arrow-long-right" type="outline" text="See more" />
+              <p-button icon="heroicons-outline:arrow-long-right" type="outline" text="เพิ่มเติม" />
             </router-link>
           </div>
         </div>
@@ -53,7 +51,7 @@
         <n-divider title-placement="center"> รายการแนะนำ </n-divider>
         <n-card class="rounded-xl">
           <div class="grid grid-cols-5 gap-y-5 gap-x-2">
-            <n-badge v-for="(book, i) in topBooks" value="hot" :offset="offset">
+            <n-badge v-for="(book, i) in topBooks" :key="book.id" value="hot" :offset="offset">
               <n-card :key="i" class="h-[460px]">
                 <div class="">
                   <img :src="book.image" alt="" class="object-contain h-64 w-64" />
@@ -92,7 +90,7 @@
 
 <script setup>
 import { onMounted, ref, watchEffect } from 'vue'
-import { bookTypes, bookList } from '@/constant/mockData'
+// import { bookTypes, bookList } from '@/constant/mockData'
 import { TransitionRoot } from '@headlessui/vue'
 
 import useBooks from '@/componsable/book_api'

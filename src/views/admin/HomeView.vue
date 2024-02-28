@@ -10,9 +10,16 @@
     leave-to="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
   >
     <div class="lg:flex lg:gap-x-6 lg:space-y-0 space-y-3 cursor-default p-6">
-      <div class="border rounded-2xl shadow-md p-5 space-y-2">
-        <p class="text-md lg:text-xl font-semibold">จำนวนหนังสือแยกประเภท</p>
-        <apexchart width="520" type="pie" :options="options" :series="dataTest"></apexchart>
+      <div
+        class="flex justify-center items-center border rounded-2xl shadow-md p-5 space-y-2 h-[440px] w-full"
+      >
+        <div v-if="!dataTest" class="text-6xl">
+          <icon icon="heroicons-solid:chart-pie" />
+        </div>
+        <div v-if="dataTest">
+          <p class="text-md lg:text-xl font-semibold">จำนวนหนังสือแยกประเภท</p>
+          <apexchart width="520" type="pie" :options="options" :series="dataTest"></apexchart>
+        </div>
       </div>
       <div class="grid w-full gap-y-3">
         <div class="flex gap-x-6">
@@ -36,9 +43,10 @@
           >
             <p class="text-sm lg:text-xl font-semibold absolute top-2 left-7">ประเภท</p>
             <div>
-              <p class="text-sm lg:text-[20px]">
+              <p v-if="bastBookType" class="text-sm lg:text-[20px]">
                 {{ bastBookType }}
               </p>
+              <p v-if="!bastBookType">NaN</p>
             </div>
             <p class="text-[0] lg:text-[20px] absolute bottom-2 right-7">ถูกยืมมากที่สุด</p>
           </div>
@@ -47,14 +55,14 @@
           <div
             class="relative border w-full rounded-2xl shadow-md p-5 flex justify-center items-center text-4xl"
           >
-            <p class="text-sm lg:text-xl font-semibold absolute top-2 left-7">ถูกยืม</p>
+            <p class="text-sm lg:text-xl font-semibold absolute top-2 left-7">ยืมแล้ว</p>
             <div>
               <div class="text-sm lg:text-3xl">
                 <n-number-animation
                   ref="numberAnimationInstRef"
                   show-separator
                   :from="0"
-                  :to="totalBorrow"
+                  :to="borrowingCount"
                   :active="true"
                 />
               </div>
@@ -70,7 +78,7 @@
                 ref="numberAnimationInstRef"
                 show-separator
                 :from="0"
-                :to="100"
+                :to="borrowingData"
                 :active="true"
               />
             </div>
@@ -131,19 +139,23 @@
 </template>
 
 <script setup>
-import { onMounted, ref, watchEffect } from 'vue'
+import { computed, onMounted, ref, watchEffect } from 'vue'
 // import { bookTypes, bookList } from '@/constant/mockData'
 import { TransitionRoot } from '@headlessui/vue'
 
 import useBooks from '@/componsable/book_api'
+import useBorrowBook from '@/componsable/borrow'
 
 import PButton from '@/components/button/index.vue'
 import sctModal from '@/components/modal/descriptionModal.vue'
+import icon from '@/components/icon/index.vue'
 
 const { bookDetails, getBookDetails } = useBooks()
+const { getBorrowDetails, borrowDetails } = useBorrowBook()
 
 onMounted(async () => {
   await getBookDetails()
+  await getBorrowDetails()
   console.log('Book Details:', bookDetails.value)
 })
 
@@ -158,6 +170,15 @@ const bastBookType = ref('')
 const options = ref({})
 
 const offset = ref([-20, 12])
+
+const borrowingData = computed(() => {
+  const returnedBorrowDetails = borrowDetails.value.filter((item) => item.status === 'returned')
+  return returnedBorrowDetails.length
+})
+
+const borrowingCount = computed(() => {
+  return borrowDetails.value.length
+})
 
 watchEffect(() => {
   topBooks.value = [...books.value].sort((a, b) => b.borrowData - a.borrowData).slice(0, 5)
@@ -183,13 +204,13 @@ watchEffect(() => {
 
   // สร้างอาร์เรย์ของยืม borrowData ของแต่ละ type
   const totalBorrowDataByType = bookDetails.value.reduce((summary, book) => {
-    const { typeBook, borrowData } = book
+    const { typeBook, amountBook } = book
 
     if (!summary[typeBook]) {
       summary[typeBook] = 0
     }
 
-    summary[typeBook] += borrowData
+    summary[typeBook] += amountBook
 
     return summary
   }, {})
@@ -203,8 +224,7 @@ watchEffect(() => {
   )
   const getDataBook = [...new Set(totalBorrowDataArray.map((book) => book.totalBorrowData))]
   dataTest.value = getDataBook
-  console.log('dataTest',dataTest)
-
+  console.log('dataTest', dataTest)
 
   const totalBorrowDataSum = totalBorrowDataArray.reduce(
     (sum, book) => sum + book.totalBorrowData,

@@ -14,11 +14,11 @@
         <table class="table">
           <thead>
             <tr>
-              <th v-for="head in headers">{{ head }}</th>
+              <th v-for="head in headers" :key="head.id">{{ head.name }}</th>
             </tr>
           </thead>
           <tbody>
-            <tr v-for="(borrow, i) in borrowDetails">
+            <tr v-for="(borrow, i) in borrowDetails" :key="borrow.id">
               <td>{{ i + 1 }}</td>
               <td>
                 <img :src="getBookInfo(borrow.bookId).image" alt="" class="h-24 w-24" />
@@ -68,6 +68,14 @@
       <p-input v-model="returnData.tel" label="เบอร์โทร" />
       <p-input v-model="borrowDetail.borrowingDate" label="วันที่ยืม" type="date" disabled />
       <p-input v-model="returnData.returnBook" label="วันที่คืน" type="date" />
+      <p v-show="isShowCheckbox" class="text-red-500">
+        ** คืนล่าช้า {{ dayLate - 3 }} วันต้องเสียค่าปรับ {{ fine }} บาท **
+      </p>
+      <div v-show="isShowCheckbox" class="flex gap-x-2 items-center">
+        <input v-model="lateCheckbox" type="checkbox" class="accent-[#7743DB]" />
+        <label>ชำระค่าปรับแล้ว</label>
+        <!-- {{ lateCheckbox }} -->
+      </div>
     </div>
     <!-- {{ returnData }} -->
     <template #footer>
@@ -91,7 +99,7 @@ import { onMounted, reactive, ref } from 'vue'
 // import { borrows, bookList } from '@/constant/mockData'
 import { TransitionRoot } from '@headlessui/vue'
 import { useToast } from 'vue-toastification'
-import { useRouter } from 'vue-router'
+// import { useRouter } from 'vue-router'
 import { differenceInDays } from 'date-fns'
 
 import useBorrowBook from '@/componsable/borrow'
@@ -102,12 +110,17 @@ import PButton from '@/components/button/index.vue'
 import PInput from '@/components/textInput/index.vue'
 
 const toast = useToast()
-const router = useRouter()
+// const router = useRouter()
 
 const { getBorrowDetails, borrowDetails, getBorrowDetail, borrowDetail, editBorrowBook } =
   useBorrowBook()
 const { getStudentDetails, studentDetails } = useStudent()
-const { getBookDetails, bookDetails } = useBooks()
+const { getBookDetails, bookDetails, editBook, getBookDetail, bookDetail } = useBooks()
+
+const isShowCheckbox = ref(false)
+const lateCheckbox = ref(false)
+const fine = ref(0)
+const dayLate = ref('')
 
 onMounted(() => {
   getStudentDetails()
@@ -115,15 +128,39 @@ onMounted(() => {
   getBorrowDetails()
 })
 
-const headers = ref([
-  'ลำดับ',
-  'Image',
-  'Book Name',
-  'Borrow Name',
-  'Date Borrow',
-  'Date Return',
-  // 'Status',
-  'Action'
+const headers = reactive([
+  {
+    id: 1,
+    name: 'ลำดับ'
+  },
+  {
+    id: 2,
+    name: 'รูปภาพ'
+  },
+  {
+    id: 3,
+    name: 'ชื่อหนังสือ'
+  },
+  {
+    id: 4,
+    name: 'ชื่อ-นามสกุลผู้ยืม'
+  },
+  {
+    id: 5,
+    name: 'วันที่ยืม'
+  },
+  {
+    id: 6,
+    name: 'วันที่คืน'
+  },
+  // {
+  //   id: 7,
+  //   name: 'สถานะ'
+  // },
+  {
+    id: 8,
+    name: ''
+  }
 ])
 
 const returnData = reactive({
@@ -155,23 +192,22 @@ function isCloseBorrowBook() {
   openBorrowBook.value = !openBorrowBook.value
 }
 
-// const isShowAlert = ref(false)
-
 async function returnBook(borrowingDate, returnData, id) {
   let date1 = new Date(borrowingDate)
   let date2 = new Date(returnData)
   let dayDiff = differenceInDays(date2, date1)
-  const fine = ref(0)
 
-  if (dayDiff > 3) {
+  if (dayDiff > 3 && !lateCheckbox.value) {
     console.log(dayDiff + ' วัน')
     fine.value = (dayDiff - 3) * 20
-    toast.info(`ยืมทั้งหมด ${dayDiff} ต้องเสียค่าปรับ ${fine.value} บาท`, {
-      timeout: false,
-      icon: false
-    })
-  } else {
-    console.log(id)
+    dayLate.value = dayDiff
+    // toast.info(`คืนล่าช้า ${dayDiff - 3} ต้องเสียค่าปรับ ${fine.value} บาท`, {
+    //   timeout: 7000,
+    //   icon: false
+    // })
+    isShowCheckbox.value = true
+    toast.error('กรุณาชำระค่าปรับ', { timeout: 2000 })
+  } else if (dayDiff > 3 && lateCheckbox.value) {
     await getBorrowDetail(id).then(() => {
       borrowDetail.value.status = 'returned'
       borrowDetail.value.returnBook = returnData
@@ -181,7 +217,22 @@ async function returnBook(borrowingDate, returnData, id) {
       })
       toast.success('ทำรายสำเร็จ', { timeout: 2000 })
     })
-    // isCloseBorrowBook()
+  } else {
+    await getBorrowDetail(id).then(() => {
+      borrowDetail.value.status = 'returned'
+      borrowDetail.value.returnBook = returnData
+      console.log(borrowDetail.value)
+      getBookDetail(borrowDetail.value.bookId).then(()=> {
+        console.log('Before book data', bookDetail.value)
+        bookDetail.value.amountBook += borrowDetail.value.amountBook
+        bookDetail.value.borrowData += 1
+        editBook(borrowDetail.value.bookId)
+      })
+      editBorrowBook(id).then(() => {
+        location.reload()
+      })
+      toast.success('ทำรายสำเร็จ', { timeout: 2000 })
+    })
   }
 }
 

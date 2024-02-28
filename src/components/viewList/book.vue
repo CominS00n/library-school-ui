@@ -1,13 +1,13 @@
 <template>
   <div v-if="props.bookData.length === 0" class="flex justify-center items-center h-80">
-    <n-empty description="You can't find anything">
+    <n-empty description="ไม่พบข้อมูล">
       <template #extra>
-        <n-button size="small"> Find Something New </n-button>
+        <!-- <n-button size="small"> Find Something New </n-button> -->
       </template>
     </n-empty>
   </div>
   <div class="grid gap-y-2">
-    <div class="border p-4 grid grid-cols-12 items-center gap-x-5" v-for="book in props.bookData">
+    <div class="border p-4 grid grid-cols-12 items-center gap-x-5" v-for="book in props.bookData" :key="book.id">
       <div class="">
         <img :src="book.image" alt="image" class="object-contain h-32 w-24" />
       </div> 
