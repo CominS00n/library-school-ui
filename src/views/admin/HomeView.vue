@@ -49,7 +49,7 @@
               </p>
               <p v-if="!bastBookType">NaN</p>
             </div>
-            <p class="text-[0] lg:text-[20px] absolute bottom-2 right-7">ถูกยืมมากที่สุด</p>
+            <p class="text-[0] lg:text-[20px] absolute bottom-2 right-7">ที่มีมากที่สุด</p>
           </div>
         </div>
         <div class="flex gap-x-6">
@@ -202,6 +202,8 @@ watchEffect(() => {
     }
   }, uniqueTypeBooks[0]) // ให้เป็น typeBook แรกไปก่อน
   bastBookType.value = mostCommonTypeBook
+
+console.log(bastBookType.value)
 
   // สร้างอาร์เรย์ของยืม borrowData ของแต่ละ type
   const totalBorrowDataByType = bookDetails.value.reduce((summary, book) => {
