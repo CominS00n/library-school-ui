@@ -72,7 +72,7 @@ import PInput from '@/components/textInput/index.vue'
 import PButton from '@/components/button/index.vue'
 
 const { studentLogin, getStudentDetails } = useStudent()
-const { adminLogin,  getAdminDetails } = useAdmin()
+const { adminLogin, getAdminDetails } = useAdmin()
 
 onMounted(() => {
   getStudentDetails()
@@ -100,12 +100,13 @@ function loginStudent() {
   } else {
     studentLogin(suser.value, spass.value)
   }
-
 }
 
 function loginAdmin() {
   if (!auser.value || !apass.value) {
     toast.error('กรุณากรอกข้อมูลให้ครบถ้วน')
+  } else if (!check.value) {
+    toast.error('กรุณายืนยันการเข้าสู่ระบบ', { timeout: 2000 })
   } else {
     adminLogin(auser.value, apass.value)
   }
