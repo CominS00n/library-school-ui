@@ -79,10 +79,10 @@ onMounted(() => {
   getAdminDetails()
 })
 
-const suser = ref('132234001')
-const spass = ref('password')
-const auser = ref('admin')
-const apass = ref('admin')
+const suser = ref('132234001') // Input Student Username
+const spass = ref('password') // Input Student Password
+const auser = ref('admin') // Input Admin Username
+const apass = ref('admin') // Input Admin Password
 
 const check = ref(false)
 const isOpenModal = ref(false)
