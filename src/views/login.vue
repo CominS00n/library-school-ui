@@ -23,9 +23,9 @@
           </p>
           <div class="flex gap-x-6 w-full">
             <router-link to="/"
-              ><p-button text="Cancel" type="outline" main-class="w-32"
+              ><p-button text="ยกเลิก" type="outline" main-class="w-32"
             /></router-link>
-            <p-button :click="loginStudent" text="Submit" type="solid" main-class="w-full" />
+            <p-button :click="loginStudent" text="เข้าสู่ระบบ" type="solid" main-class="w-full" />
           </div>
         </div>
       </div>
@@ -50,8 +50,8 @@
     </div>
     <template #footer>
       <div class="flex gap-x-4">
-        <p-button :click="closeModal" text="Cancel" />
-        <p-button :click="loginAdmin" text="Submit" type="solid" main-class="w-full" />
+        <p-button :click="closeModal" text="ยกเลิก" />
+        <p-button :click="loginAdmin" text="เข้าสู่ระบบ" type="solid" main-class="w-full" />
       </div>
     </template>
   </n-modal>

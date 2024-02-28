@@ -13,10 +13,11 @@
       <div
         class="flex justify-center items-center border rounded-2xl shadow-md p-5 space-y-2 h-[440px] w-full"
       >
-        <div v-if="!dataTest" class="text-6xl">
+      <!-- {{ dataTest }} -->
+        <div v-if="dataTest.length === 0" class="text-6xl">
           <icon icon="heroicons-solid:chart-pie" />
         </div>
-        <div v-if="dataTest">
+        <div v-if="dataTest.length > 0">
           <p class="text-md lg:text-xl font-semibold">จำนวนหนังสือแยกประเภท</p>
           <apexchart width="520" type="pie" :options="options" :series="dataTest"></apexchart>
         </div>

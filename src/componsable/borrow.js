@@ -36,7 +36,6 @@ export default function useBorrowBook() {
         url: 'lendBook',
         data: data
       })
-      location.reload()
     } catch (err) {
       console.error('Error adding borrow:', err)
       if (err.response && err.response.status === 422) {

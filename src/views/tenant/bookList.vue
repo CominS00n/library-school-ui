@@ -49,17 +49,17 @@
         </ul> -->
       </div>
       <div v-show="dataList === 'grid'">
-        <grid :bookData="bookDetails" :search-filter="searchInput" :type-filter="typeFilter" />
+        <grid :bookData="filteredBooks" :search-filter="searchInput" :type-filter="typeFilter" />
       </div>
       <div v-show="dataList === 'list'">
-        <list :bookData="bookDetails" :search-filter="searchInput" :type-filter="typeFilter" />
+        <list :bookData="filteredBooks" :search-filter="searchInput" :type-filter="typeFilter" />
       </div>
     </div>
   </TransitionRoot>
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 // import { bookTypes } from '@/constant/mockData'
 import { TransitionRoot } from '@headlessui/vue'
 
@@ -90,4 +90,14 @@ const searchInput = ref('')
 //     typeFilter.value = bookType
 //   }
 // }
+
+const filteredBooks = computed(() => {
+  const lowerCaseSearchTerm = searchInput.value.toLowerCase()
+  return bookDetails.value.filter((book) => {
+    return (
+      book.nameBook.toLowerCase().includes(lowerCaseSearchTerm) ||
+      book.typeBook.toLowerCase().includes(lowerCaseSearchTerm)
+    )
+  })
+})
 </script>

@@ -99,7 +99,7 @@ import { onMounted, reactive, ref } from 'vue'
 // import { borrows, bookList } from '@/constant/mockData'
 import { TransitionRoot } from '@headlessui/vue'
 import { useToast } from 'vue-toastification'
-// import { useRouter } from 'vue-router'
+import { useRouter } from 'vue-router'
 import { differenceInDays } from 'date-fns'
 
 import useBorrowBook from '@/componsable/borrow'
@@ -110,7 +110,7 @@ import PButton from '@/components/button/index.vue'
 import PInput from '@/components/textInput/index.vue'
 
 const toast = useToast()
-// const router = useRouter()
+const router = useRouter()
 
 const { getBorrowDetails, borrowDetails, getBorrowDetail, borrowDetail, editBorrowBook } =
   useBorrowBook()
@@ -222,7 +222,7 @@ async function returnBook(borrowingDate, returnData, id) {
       borrowDetail.value.status = 'returned'
       borrowDetail.value.returnBook = returnData
       console.log(borrowDetail.value)
-      getBookDetail(borrowDetail.value.bookId).then(()=> {
+      getBookDetail(borrowDetail.value.bookId).then(() => {
         console.log('Before book data', bookDetail.value)
         bookDetail.value.amountBook += borrowDetail.value.amountBook
         bookDetail.value.borrowData += 1

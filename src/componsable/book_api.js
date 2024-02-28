@@ -37,7 +37,7 @@ export default function useBooks() {
   const editBook = async (id) => {
     try {
       await axios.put(`bookList/${id}`, bookDetail.value)
-      location.reload()
+      // location.reload()
     } catch (err) {
       errors.value = err.response.data.errors
     }

@@ -79,6 +79,7 @@
         </div>
       </div>
     </div>
+    {{ borrowData }}
   </TransitionRoot>
 </template>
 
@@ -120,7 +121,7 @@ const borrowData = reactive({
   lastName: '',
   tel: '',
   borrowingDate: '',
-  returnBook: '',
+  returnBook: null,
   amountBook: '',
   status: 'unreturned' //returned
 })
@@ -142,8 +143,11 @@ function submit() {
       toast.error('จำนวนหนังสือมีไม่พอ', { timeout: 2000 })
     } else {
       bookDetail.value.amountBook -= borrowData.amountBook
+      console.log(borrowData)
       saveBorrowBook(borrowData)
       editBook(id.value)
+      toast.success('ดำเนินการสำเร็จ', {timeout: 2000})
+      router.go(-1)
     }
   }
 }
