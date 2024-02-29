@@ -42,6 +42,11 @@ export default function useBooks() {
       errors.value = err.response.data.errors
     }
   }
+
+  const removeBook = async (id) => {
+    await axios.delete(`bookList/${id}`)
+    await getBookDetails()
+  }
   return {
     bookDetails,
     bookDetail,
@@ -49,6 +54,7 @@ export default function useBooks() {
     getBookDetails,
     getBookDetail,
     addBook,
-    editBook
+    editBook,
+    removeBook
   }
 }

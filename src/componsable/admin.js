@@ -51,7 +51,8 @@ export default function useAdmin() {
           id: checkUsername.id,
           username: checkUsername.username,
           firstName: checkUsername.firstName,
-          lastName: checkUsername.lastName
+          lastName: checkUsername.lastName,
+          role: 'admin'
         })
         console.log(`${checkUsername.firstName} ${checkUsername}`)
         toast.success('เข้าสู่ระบบสำเร็จ', { timeout: 2000 })

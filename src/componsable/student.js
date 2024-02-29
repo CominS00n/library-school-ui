@@ -52,7 +52,8 @@ export default function useStudent() {
           username: checkUsername.username,
           firstName: checkUsername.firstName,
           lastName: checkUsername.lastName,
-          studentNo: checkUsername.studentNo
+          studentNo: checkUsername.studentNo,
+          role: 'student'
         })
         console.log(`${checkUsername.firstName} ${checkUsername}`)
         toast.success('เข้าสู่ระบบสำเร็จ', { timeout: 2000 })

@@ -1,6 +1,7 @@
 <template>
   <div class="flex flex-col gap-y-3">
     <img :src="bookDetail.image" alt="" class="object-contain h-64" />
+    <!-- <p-button text="แก้ไข" type="outline" icon="heroicons-outline:pencil-square" /> -->
     <div class="space-y-1 h-64">
       <p><span class="font-semibold">ชื่อหนังสือ:</span> {{ bookDetail.nameBook }}</p>
       <p><span class="font-semibold">โรงเรียน:</span> {{ bookDetail.school }}</p>
@@ -13,6 +14,9 @@
 
 <script setup>
 import { onMounted } from 'vue'
+
+// import PButton from '@/components/button/index.vue'
+
 import useBooks from '@/componsable/book_api'
 
 const { bookDetail, getBookDetail } = useBooks()
