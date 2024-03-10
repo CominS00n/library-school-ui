@@ -20,10 +20,15 @@ export const menuItem_Admin = [
     link: 'admin-add-book'
   },
   {
+    title: 'ข้อมูลผู้ใช้',
+    icon: '',
+    link: 'admin-user-management'
+  },
+  {
     title: 'Register',
     icon: '',
     link: 'admin-register'
-  }
+  },
 ]
 
 export const menuItem_Tenant = [

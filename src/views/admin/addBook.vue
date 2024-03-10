@@ -34,7 +34,7 @@
             placeholder="เลือกประเภท"
             label="ประเภท"
           />
-          <p-input v-model="data.amountBook" label="จำนวน" placeholder="จำนวน" />
+          <p-input v-model="data.amountBook" label="จำนวน" placeholder="จำนวน" disabled />
           <p-input v-model="data.description" label="รายละเอียด" placeholder="รายละเอียด" />
         </div>
       </div>
@@ -76,7 +76,7 @@ const data = reactive({
   nameBook: '',
   school: 'โรงเรียนเทศบาลชนะชัยศรี',
   typeBook: '',
-  amountBook: '',
+  amountBook: 1,
   description: '',
   image: '',
   borrowData: 0
