@@ -20,6 +20,7 @@ export default function useBooks() {
   }
 
   const addBook = async (data) => {
+    console.log(data)
     try {
       await axios({
         method: 'post',

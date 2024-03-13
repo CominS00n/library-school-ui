@@ -33,6 +33,10 @@
         <img :src="book.image" alt="image" class="object-contain h-32 w-24" />
       </div>
       <div class="col-span-11 grid grid-cols-6">
+        <div class="p-3">
+          <p class="font-semibold">รหัส</p>
+          <p>{{ book.serialNumber }}</p>
+        </div>
         <div class="flex flex-col justify-center">
           <h3 class="font-bold">{{ book.nameBook }}</h3>
           <p>{{ book.school }}</p>
@@ -41,13 +45,13 @@
           <p class="font-semibold">ประเภท</p>
           <p>{{ book.typeBook }}</p>
         </div>
-        <div class="col-span-3 p-3">
+        <div class="col-span-2 p-3">
           <p class="font-semibold">Description</p>
           <p>
             {{ book.description }}
           </p>
         </div>
-        <div class="flex items-center justify-center">
+        <div v-if="accountLogin.role === 'admin'" class="flex items-center justify-center">
           <router-link :to="`/borrow-book/${book.id}`">
             <p-button text="ยืม" type="outline"></p-button>
           </router-link>
@@ -68,6 +72,7 @@
       <img :src="bookDetail.image" alt="##" class="h-48" />
     </div>
     <div class="grid grid-cols-2 gap-y-2 gap-x-2">
+      <p-input class="col-span-2" v-model="bookDetail.serialNumber" label="รหัสหนังสือ" />
       <p-input class="col-span-2" v-model="bookDetail.nameBook" label="ชื่อหนังสือ" />
       <p-input class="col-span-2" v-model="bookDetail.school" label="โรงเรียน" />
       <p-input v-model="bookDetail.typeBook" label="ประเภท" />

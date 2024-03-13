@@ -3,6 +3,7 @@
     <img :src="bookDetail.image" alt="" class="object-contain h-64" />
     <!-- <p-button text="แก้ไข" type="outline" icon="heroicons-outline:pencil-square" /> -->
     <div class="space-y-1 h-64">
+      <p><span class="font-semibold">รหัสหนังสือ:</span> {{ bookDetail.serialNumber }}</p>
       <p><span class="font-semibold">ชื่อหนังสือ:</span> {{ bookDetail.nameBook }}</p>
       <p><span class="font-semibold">โรงเรียน:</span> {{ bookDetail.school }}</p>
       <p><span class="font-semibold">ประเภท:</span> {{ bookDetail.typeBook }}</p>

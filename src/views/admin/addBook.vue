@@ -26,6 +26,7 @@
           </div>
         </div>
         <div class="w-full p-3 space-y-3">
+          <p-input v-model="data.serialNumber" label="รหัสหนังสือ" placeholder="ตัวอย่าง 124221" />
           <p-input v-model="data.nameBook" label="ชื่อหนังสือ" placeholder="กรอกชื่อหนังสือ" />
           <p-input v-model="data.school" label="โรงเรียน" placeholder="โรงเรียน" />
           <p-select
@@ -42,7 +43,7 @@
         <p-button :click="goBack" text="ยกเลิก" type="outline" main-class="w-32" />
         <p-button :click="submit" text="ตกลง" type="solid" main-class="w-80" />
       </div>
-      <!-- {{ data }} -->
+      {{ data }}
     </div>
   </TransitionRoot>
 </template>
@@ -73,7 +74,8 @@ const file = ref()
 const typeBookSelect = bookTypes.slice(1).sort()
 
 const data = reactive({
-  nameBook: '',
+  serialNumber: '',
+  nameBook:'',
   school: 'โรงเรียนเทศบาลชนะชัยศรี',
   typeBook: '',
   amountBook: 1,
@@ -95,7 +97,7 @@ function handleSelectBook(value) {
 }
 
 function submit() {
-  if (!data.nameBook || !data.typeBook || !data.amountBook) {
+  if (!data.nameBook || !data.typeBook || !data.amountBook || !data.serialNumber) {
     toast.error('กรุณากรอกข้อมูลให้ครบถ้วน', { timeout: 2000 })
   } else {
     uploadImage(file.value).then((imageURL) => {

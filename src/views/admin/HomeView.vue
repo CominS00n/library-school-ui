@@ -13,7 +13,7 @@
       <div
         class="flex justify-center items-center border rounded-2xl shadow-md p-5 space-y-2 h-[440px] w-full"
       >
-      <!-- {{ dataTest }} -->
+        <!-- {{ dataTest }} -->
         <div v-if="dataTest.length === 0" class="text-6xl">
           <icon icon="heroicons-solid:chart-pie" />
         </div>
@@ -103,11 +103,14 @@
         <n-card class="rounded-xl">
           <div class="grid grid-cols-5 gap-y-5 gap-x-2">
             <n-badge v-for="(book, i) in topBooks" value="hot" :offset="offset" :key="book.id">
-              <n-card :key="i" class="h-[460px]">
+              <n-card :key="i" class="h-[480px]">
                 <div class="">
                   <img :src="book.image" alt="" class="object-contain h-64 w-64" />
                 </div>
-                <h1 class="text-center font-semibold h-12">{{ book.nameBook }}</h1>
+                <div class="grid justify-center items-center h-16">
+                  <h1 class="text-center font-semibold">{{ book.serialNumber }}</h1>
+                  <h1 class="text-center font-semibold">{{ book.nameBook }}</h1>
+                </div>
                 <div class="detail text-start">
                   <p>{{ book.school }}</p>
                   <p>ประเภท: {{ book.typeBook }}</p>
@@ -203,7 +206,7 @@ watchEffect(() => {
   }, uniqueTypeBooks[0]) // ให้เป็น typeBook แรกไปก่อน
   bastBookType.value = mostCommonTypeBook
 
-console.log(bastBookType.value)
+  console.log(bastBookType.value)
 
   // สร้างอาร์เรย์ของยืม borrowData ของแต่ละ type
   const totalBorrowDataByType = bookDetails.value.reduce((summary, book) => {

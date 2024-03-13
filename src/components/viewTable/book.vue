@@ -7,7 +7,7 @@
     </n-empty>
   </div>
   <div class="grid grid-cols-5 gap-y-5 gap-x-2">
-    <n-card data-aos="fade-left" v-for="book in props.bookData" class="h-[460px]" :key="book.id">
+    <n-card data-aos="fade-left" v-for="book in props.bookData" class="h-[480px]" :key="book.id">
       <button
         v-if="accountLogin.role === 'admin'"
         @click="editDetail(book.id)"
@@ -18,7 +18,10 @@
       <div class="">
         <img :src="book.image" alt="" class="object-contain h-64 w-64" />
       </div>
-      <h1 class="text-center font-semibold h-12">{{ book.nameBook }}</h1>
+      <div class="grid justify-center items-center h-16">
+        <h1 class="text-center font-semibold">{{ book.serialNumber }}</h1>
+        <h1 class="text-center font-semibold">{{ book.nameBook }}</h1>
+      </div>
       <div class="detail">
         <p>{{ book.school }}</p>
         <p>ประเภท: {{ book.typeBook }}</p>
@@ -26,9 +29,13 @@
         <!-- {{ book.borrowData }} -->
       </div>
       <div class="acton flex mt-3 justify-between">
-        <p-button :click="() => detailClick(book.id, book.imageURL)" text="รายละเอียด"></p-button>
+        <p-button
+          :click="() => detailClick(book.id, book.imageURL)"
+          text="รายละเอียด"
+          :main-class="accountLogin.role !== 'admin' ? 'w-full' : ''"
+        ></p-button>
         <router-link :to="`/borrow-book/${book.id}`">
-          <p-button text="ยืม" type="solid"></p-button>
+          <p-button v-if="accountLogin.role === 'admin'" text="ยืม" type="solid"></p-button>
         </router-link>
       </div>
     </n-card>
@@ -57,6 +64,7 @@
       <img :src="bookDetail.image" alt="##" class="h-48" />
     </div>
     <div class="grid grid-cols-2 gap-y-2 gap-x-2">
+      <p-input class="col-span-2" v-model="bookDetail.serialNumber" label="รหัสหนังสือ" />
       <p-input class="col-span-2" v-model="bookDetail.nameBook" label="ชื่อหนังสือ" />
       <p-input class="col-span-2" v-model="bookDetail.school" label="โรงเรียน" />
       <p-input v-model="bookDetail.typeBook" label="ประเภท" />
