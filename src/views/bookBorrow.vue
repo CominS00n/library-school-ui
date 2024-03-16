@@ -65,7 +65,6 @@
             placeholder="กรอกเบอร์โทรผู้ปกครอง"
           />
           <p-input v-model="borrowData.borrowingDate" label="วันที่ยืม" type="date" />
-          <!-- <p-input label="วันที่คืน" type="date" /> -->
         </div>
         <div class="col-span-2 flex justify-end gap-x-3 mt-3">
           <p-button :click="goBack" type="outline" text="ยกเลิก" main-class="w-32" />

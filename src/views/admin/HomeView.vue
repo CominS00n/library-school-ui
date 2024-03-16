@@ -90,14 +90,6 @@
     </div>
 
     <div class="space-y-24 my-2 text-center container mx-auto">
-      <!-- <div>
-        <n-divider title-placement="center"> หวมดหมู่ </n-divider>
-        <div class="my-6 flex justify-around">
-          <span v-for="bookType in bookTypes">
-            <p-button type="outline" :text="bookType" />
-          </span>
-        </div>
-      </div> -->
       <div class="my-2 space-y-6">
         <n-divider title-placement="center"> รายการแนะนำ </n-divider>
         <n-card class="rounded-xl">
@@ -144,7 +136,6 @@
 
 <script setup>
 import { computed, onMounted, ref, watchEffect } from 'vue'
-// import { bookTypes, bookList } from '@/constant/mockData'
 import { TransitionRoot } from '@headlessui/vue'
 
 import useBooks from '@/componsable/book_api'

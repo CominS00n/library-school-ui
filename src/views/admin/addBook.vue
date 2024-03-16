@@ -43,7 +43,6 @@
         <p-button :click="goBack" text="ยกเลิก" type="outline" main-class="w-32" />
         <p-button :click="submit" text="ตกลง" type="solid" main-class="w-80" />
       </div>
-      {{ data }}
     </div>
   </TransitionRoot>
 </template>
@@ -110,7 +109,7 @@ function submit() {
       data.nameBook = ''
       data.school = 'โรงเรียนเทศบาลชนะชัยศรี'
       data.typeBook = ''
-      data.amountBook = ''
+      data.amountBook = 1
       data.description = ''
     })
   }
@@ -122,7 +121,7 @@ function goBack() {
   data.name = ''
   data.school = 'โรงเรียนเทศบาลชนะชัยศรี'
   data.typeBook = ''
-  data.amountBook = ''
+  data.amountBook = 1
   data.description = ''
   router.push('/admin')
 }

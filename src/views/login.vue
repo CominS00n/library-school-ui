@@ -59,11 +59,8 @@
 
 <script setup>
 import { onMounted, ref } from 'vue'
-// import { useRouter } from 'vue-router'
 import { TransitionRoot } from '@headlessui/vue'
 import { useToast } from 'vue-toastification'
-// import { student, Admin } from '@/constant/mockData'
-// import { saveUserInfo } from '@/stores/accountLogin'
 
 import useAdmin from '@/componsable/admin'
 import useStudent from '@/componsable/student'
@@ -87,7 +84,6 @@ const apass = ref('admin') // Input Admin Password
 const check = ref(false)
 const isOpenModal = ref(false)
 
-// const router = useRouter()
 const toast = useToast()
 
 function closeModal() {

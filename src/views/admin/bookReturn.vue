@@ -74,10 +74,8 @@
       <div v-show="isShowCheckbox" class="flex gap-x-2 items-center">
         <input v-model="lateCheckbox" type="checkbox" class="accent-[#7743DB]" />
         <label>ชำระค่าปรับแล้ว</label>
-        <!-- {{ lateCheckbox }} -->
       </div>
     </div>
-    <!-- {{ returnData }} -->
     <template #footer>
       <div class="flex gap-x-4">
         <p-button :click="isCloseBorrowBook" text="Cancel" />
@@ -96,10 +94,8 @@
 
 <script setup>
 import { onMounted, reactive, ref } from 'vue'
-// import { borrows, bookList } from '@/constant/mockData'
 import { TransitionRoot } from '@headlessui/vue'
 import { useToast } from 'vue-toastification'
-import { useRouter } from 'vue-router'
 import { differenceInDays } from 'date-fns'
 
 import useBorrowBook from '@/componsable/borrow'
@@ -110,7 +106,6 @@ import PButton from '@/components/button/index.vue'
 import PInput from '@/components/textInput/index.vue'
 
 const toast = useToast()
-const router = useRouter()
 
 const { getBorrowDetails, borrowDetails, getBorrowDetail, borrowDetail, editBorrowBook } =
   useBorrowBook()
@@ -153,10 +148,6 @@ const headers = reactive([
     id: 6,
     name: 'วันที่คืน'
   },
-  // {
-  //   id: 7,
-  //   name: 'สถานะ'
-  // },
   {
     id: 8,
     name: ''
@@ -201,10 +192,6 @@ async function returnBook(borrowingDate, returnData, id) {
     console.log(dayDiff + ' วัน')
     fine.value = (dayDiff - 3) * 20
     dayLate.value = dayDiff
-    // toast.info(`คืนล่าช้า ${dayDiff - 3} ต้องเสียค่าปรับ ${fine.value} บาท`, {
-    //   timeout: 7000,
-    //   icon: false
-    // })
     isShowCheckbox.value = true
     toast.error('กรุณาชำระค่าปรับ', { timeout: 2000 })
   } else if (dayDiff > 3 && lateCheckbox.value) {

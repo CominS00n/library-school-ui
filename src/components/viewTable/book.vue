@@ -26,7 +26,6 @@
         <p>{{ book.school }}</p>
         <p>ประเภท: {{ book.typeBook }}</p>
         <p>จำนวน: {{ book.amountBook }}</p>
-        <!-- {{ book.borrowData }} -->
       </div>
       <div class="acton flex mt-3 justify-between">
         <p-button
@@ -40,7 +39,6 @@
       </div>
     </n-card>
   </div>
-  <!-- {{ bookList }} -->
   <n-modal
     v-model:show="isOpenModal"
     class="custom-card w-[560px]"
@@ -95,7 +93,7 @@ import PInput from '@/components/textInput/index.vue'
 import sctModal from '@/components/modal/descriptionModal.vue'
 import icon from '@/components/icon/index.vue'
 
-const { getBookDetail, bookDetail, editBook, removeBook } = useBooks()
+const { getBookDetail, bookDetail, editBook } = useBooks()
 
 const accountLogin = getUserInfo()
 const toast = useToast()
@@ -129,7 +127,6 @@ function detailClick(bookId, img) {
 async function editDetail(id) {
   await getBookDetail(id)
   isOpenEdit.value = true
-  console.log(bookDetail.value)
 }
 
 function submitEdit(id) {
@@ -140,10 +137,10 @@ function submitEdit(id) {
   })
 }
 
-function deleteBook(id) {
-  removeBook(id)
-  toast.success('ลบรายการสำเร็จ', { timeout: 2000 })
-}
+// function deleteBook(id) {
+//   removeBook(id)
+//   toast.success('ลบรายการสำเร็จ', { timeout: 2000 })
+// }
 
 function closeEdit() {
   isOpenEdit.value = false
